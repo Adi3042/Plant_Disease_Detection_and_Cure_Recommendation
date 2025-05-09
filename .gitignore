@@ -143,5 +143,5 @@ Notebooks/Model Building copy.ipynb
 Notebooks/ModelTraining.ipynb
 
 # remove background video
-static/plan2.mp4
-static/video.mp4
+static/assets/plan2.mp4
+static/assets/video.mp4
