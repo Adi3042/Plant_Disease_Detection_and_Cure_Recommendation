@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/" class="logo-link">
+        <img src="/static/assets/logo1.png" alt="Logo" class="logo" />
+      </a>
+      <h1>Prediction Result</h1>
+    </header>
+
+    <div id="result-container" class="result-container">
+      <div class="prediction-result">
+        <h2>Prediction</h2>
+        <p><strong>Class:</strong> {{ class_name }}</p>
+        <p><strong>Confidence:</strong> {{ confidence }}%</p>
+      </div>
+      <div class="uploaded-image">
+        <h2>Uploaded Image</h2>
+        <img src="data:image/png;base64,{{ img_data }}" alt="Uploaded Image" />
+      </div>
+    </div>
+
+    <a href="/" class="button">Upload Another Image</a>
+  </body>
+</html>
