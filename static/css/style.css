@@ -117,6 +117,39 @@ video.background-video {
     }
 }
 
+/* Styling for the Capture Live button */
+.capture-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background 0.3s;
+}
+
+.capture-btn:hover {
+    background: #45a049;
+}
+
+/* Styling for the camera container */
+.camera-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#live-video {
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 header {
     width: 100%;
     padding: 10px 20px;

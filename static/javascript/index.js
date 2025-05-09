@@ -1,14 +1,14 @@
 // Live Capture Functionality
 const captureBtn = document.getElementById('capture-btn');
 const liveVideo = document.getElementById('live-video');
-const captureCanvas = document.getElementById('capture-canvas');
+const cameraContainer = document.getElementById('camera-container');
 
 if (captureBtn) {
     captureBtn.addEventListener('click', () => {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
                 liveVideo.srcObject = stream;
-                liveVideo.style.display = 'block';
+                cameraContainer.style.display = 'flex'; // Show the camera container
             })
             .catch(err => {
                 console.error('Error accessing camera:', err);
