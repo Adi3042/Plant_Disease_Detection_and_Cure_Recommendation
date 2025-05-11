@@ -179,20 +179,18 @@ nav {
 }
 
 nav a {
-    color: #fff; /* Matches the login page */
-    font-size: 18px;
-    text-decoration: none;
-    padding: 5px 9px;
-    font-weight: bold;
-    border: 2px solid transparent;
-    transition: background 0.3s, color 0.3s, border 0.3s;
+  color: var(--navbar-color);
+  font-size: 18px;
+  text-decoration: none;
+  padding: 5px 9px;
+  font-weight: bold;
+  border: 2px solid transparent;
+  transition: color 0.3s, border 0.3s;
 }
 
 nav a:hover {
-    background: rgba(255, 255, 255, 0.8); /* Matches the hover effect */
-    color: #000;
-    border: 2px solid #fff;
-    border-radius: 5px;
+    color: var(--navbar-hover-color, #007BFF); /* Hover text color */
+    border-bottom: 2px solid #007BFF; /* Underline effect on hover */
 }
 
 .hamburger {
@@ -202,37 +200,41 @@ nav a:hover {
     color: #fff;
 }
 
+.hamburger i {
+  font-size: 24px;
+}
+
 /* Responsive Design for Mobile */
 @media (max-width: 768px) {
-    nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px; /* Adjust based on header height */
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.9);
-        width: 100%;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+  nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Adjust based on header height */
+    right: 0;
+    width: 100%;
+  }
 
-    nav a {
-        padding: 15px;
-        text-align: center;
-        width: 100%;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
+  nav a {
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+  }
 
-    nav a:last-child {
-        border-bottom: none;
-    }
+  nav a:last-child {
+    border-bottom: none;
+  }
 
-    .hamburger {
-        display: block;
-    }
+  .hamburger {
+    display: block;
+  }
 
-    nav.active {
-        display: flex;
-    }
+  nav.active {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background for dropdown */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .result-container {

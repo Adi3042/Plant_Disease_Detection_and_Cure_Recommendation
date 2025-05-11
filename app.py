@@ -11,15 +11,32 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from google.oauth2 import id_token
 from google.auth.transport import requests
+from utils import load_keras_model, predict
+
+# Load the Keras model (.h5)
+model = load_keras_model('saved_models/Plant_Disease_MobileNetV2_tuning.h5')
+
+# Class names (should match your training labels exactly)
+class_names = [
+    'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust', 'Apple___healthy',
+    'Background_without_leaves', 'Blueberry___healthy', 'Cherry___Powdery_mildew', 'Cherry___healthy',
+    'Corn___Cercospora_leaf_spot Gray_leaf_spot', 'Corn___Common_rust', 'Corn___Northern_Leaf_Blight',
+    'Corn___healthy', 'Grape___Black_rot', 'Grape___Esca_(Black_Measles)',
+    'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Grape___healthy',
+    'Orange___Haunglongbing_(Citrus_greening)', 'Peach___Bacterial_spot', 'Peach___healthy',
+    'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 'Potato___Early_blight',
+    'Potato___Late_blight', 'Potato___healthy', 'Raspberry___healthy', 'Soybean___healthy',
+    'Squash___Powdery_mildew', 'Strawberry___Leaf_scorch', 'Strawberry___healthy',
+    'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold',
+    'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite',
+    'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
+    'Tomato___healthy'
+]
 
 # Load environment variables
 load_dotenv()
-
 app = Flask(__name__)
-
-# Use environment variables for sensitive data
 app.secret_key = os.getenv("SECRET_KEY", "your_fallback_secret")  # Secret key for Flask sessions
-# MONGO_URI = os.getenv("MONGO_URI", "your_fallback_mongo_uri")  # MongoDB URI from environment variable
 MONGO_URI = "mongodb+srv://admin:root@cluster0.1wwnm.mongodb.net/PlantLeafDiseaseDB?retryWrites=true&w=majority&appName=Cluster0"  # Replace with your MongoDB URI
 
 try:
@@ -45,6 +62,31 @@ def test_db():
     except Exception as e:
         return f"An error occurred: {e}"
 
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        file = request.files.get('file')
+        if not file:
+            return jsonify({"status": "error", "message": "No file uploaded"}), 400
+        try:
+            img = Image.open(BytesIO(file.read()))
+            predicted_class, confidence = predict(model, img, class_names)
+
+            img_data = BytesIO()
+            img.save(img_data, format='PNG')
+            img_data.seek(0)
+            img_base64 = base64.b64encode(img_data.getvalue()).decode('utf-8')
+
+            return jsonify({
+                "status": "success",
+                "img_data": img_base64,
+                "class_name": predicted_class,
+                "confidence": confidence
+            })
+        except Exception as e:
+            return jsonify({"status": "error", "message": str(e)}), 500
+
+    return render_template('index.html')
 
 @app.route('/google-login', methods=['POST'])
 def google_login():
@@ -88,74 +130,6 @@ def google_login():
         print(f"An error occurred: {e}")
         return jsonify({"status": "error", "message": "Internal Server Error"}), 500
 
-# Load the TFLite model and allocate tensors
-def load_tflite_model(model_path):
-    """Load the TensorFlow Lite model."""
-    interpreter = tf.lite.Interpreter(model_path=model_path)
-    interpreter.allocate_tensors()
-    return interpreter
-
-# Load the TFLite model
-interpreter = load_tflite_model('saved_models/Disease_Classifier.tflite')
-
-# Class names for predictions
-class_names = [
-    'Apple Black Rot', 'Apple Scab', 'Blueberry Healthy', 'Cedar Apple', 'Cherry Healthy', 'Cherry Powdery Mildew',
-    'Corn (maize) Cercospora leaf spot', 'Corn (maize) Healthy', 'Corn (maize) Northern Leaf Blight', 'Corn (maize) Rust',
-    'Grape Black Measles', 'Grape Black Rot', 'Grape Healthy', 'Grape Leaf Blight', 'Healthy Apple', 'Orange Black Spot',
-    'Orange Canker', 'Orange Fresh', 'Orange Grenning', 'Orange Haunglongbing', 'Peach Bacterial Spot', 'Peach Healthy',
-    'Pepper Bell Bacterial Spot', 'Pepper Bell Healthy', 'Potato Early Blight', 'Potato Healthy', 'Potato Late Blight',
-    'Raspberry Healthy', 'Rice Bacterial Blight', 'Rice Blast', 'Rice Brownspot', 'Rice Tungro', 'Soybean Healthy',
-    'Squash Powdery Mildew', 'Strawberry Healthy', 'Strawberry Leaf Scorch', 'Sugarcane Healthy', 'Sugarcane Mosaic',
-    'Sugarcane RedRot', 'Sugarcane Rust', 'Sugarcane Yellow', 'Tomato Bacterial Spot', 'Tomato Early Blight', 'Tomato Healthy',
-    'Tomato Late Blight', 'Tomato Leaf Mold', 'Tomato Mosaic Virus', 'Tomato Septoria Leaf Spot', 'Tomato Spider Mites',
-    'Tomato Target Spot', 'Tomato Yellow Leaf Curl Virus'
-]
-
-def predict(interpreter, img):
-    """Predict the class of the given image using the TFLite model."""
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
-
-    img = img.resize((128, 128))  # Resize image to match model input size
-    img_array = np.expand_dims(np.array(img), axis=0).astype(np.float32)
-
-    interpreter.set_tensor(input_details[0]['index'], img_array)
-    interpreter.invoke()
-    output_data = interpreter.get_tensor(output_details[0]['index'])
-    print(f"Model Output: {output_data}")  # Debug: Log the model output
-
-    predicted_class = class_names[np.argmax(output_data[0])]
-    confidence = round(100 * np.max(output_data[0]), 2)
-    print(f"Predicted Class: {predicted_class}, Confidence: {confidence}")  # Debug: Log the prediction
-    return predicted_class, confidence
-
-@app.route('/', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        file = request.files.get('file')
-        if not file:
-            return jsonify({"status": "error", "message": "No file uploaded"}), 400
-        try:
-            img = Image.open(BytesIO(file.read()))
-            predicted_class, confidence = predict(interpreter, img)
-
-            img_data = BytesIO()
-            img.save(img_data, format='PNG')
-            img_data.seek(0)
-            img_base64 = base64.b64encode(img_data.getvalue()).decode('utf-8')
-
-            return jsonify({
-                "status": "success",
-                "img_data": img_base64,
-                "class_name": predicted_class,
-                "confidence": confidence
-            })
-        except Exception as e:
-            return jsonify({"status": "error", "message": str(e)}), 500
-
-    return render_template('index.html')
-
 
 # Helper Function: Validate Form Fields
 def validate_signup_form(username, password, confirmpassword, mobileno, countrycode):
@@ -189,7 +163,7 @@ def contact_us():
     """Render the Contact Us page."""
     return render_template('/contactUs.html')
 
-@app.route("/research_paper.html")
+@app.route("/research_paper")
 def research_paper():
     return render_template("research_paper.html")
 

@@ -3,6 +3,8 @@ from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 import tensorflow as tf
 import numpy as np
+from tensorflow.keras.models import load_model
+
 
 def connect_to_mongodb(uri):
     try:
@@ -13,24 +15,18 @@ def connect_to_mongodb(uri):
         print(f"An error occurred: {e}")
         return None
 
-def load_tflite_model(model_path):
-    interpreter = tf.lite.Interpreter(model_path=model_path)
-    interpreter.allocate_tensors()
-    return interpreter
+# Load the Keras .h5 model
+def load_keras_model(model_path):
+    return load_model(model_path)
 
-def predict(interpreter, img, class_names):
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
-
+# Predict function using the Keras model
+def predict(model, img, class_names):
     img = img.resize((128, 128))
-    img_array = np.expand_dims(np.array(img), axis=0).astype(np.float32)
+    img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
 
-    interpreter.set_tensor(input_details[0]['index'], img_array)
-    interpreter.invoke()
-    output_data = interpreter.get_tensor(output_details[0]['index'])
-
-    predicted_class = class_names[np.argmax(output_data[0])]
-    confidence = round(100 * np.max(output_data[0]), 2)
+    predictions = model.predict(img_array)
+    predicted_class = class_names[np.argmax(predictions[0])]
+    confidence = round(100 * np.max(predictions[0]), 2)
     return predicted_class, confidence
 
 def validate_signup_form(username, password, confirmpassword, mobileno, countrycode):

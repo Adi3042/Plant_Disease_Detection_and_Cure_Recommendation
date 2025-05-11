@@ -27,20 +27,19 @@ nav {
 }
 
 nav a {
-    color: #fff; /* Matches the login page */
-    font-size: 18px;
-    text-decoration: none;
-    padding: 5px 9px;
-    font-weight: bold;
-    border: 2px solid transparent;
-    transition: background 0.3s, color 0.3s, border 0.3s;
+  color: var(--navbar-color, white); /* Default text color */
+  font-size: 18px;
+  text-decoration: none;
+  padding: 5px 9px;
+  font-weight: bold;
+  border: 2px solid transparent;
+  transition: color 0.3s, border 0.3s;
 }
 
+
 nav a:hover {
-    background: rgba(255, 255, 255, 0.8); /* Matches the hover effect */
-    color: #000;
-    border: 2px solid #fff;
-    border-radius: 5px;
+  color: var(--navbar-hover-color, #007BFF); /* Hover text color */
+  border-bottom: 2px solid #007BFF; /* Underline effect on hover */
 }
 
 .hamburger {
