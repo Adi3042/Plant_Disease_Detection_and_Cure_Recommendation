@@ -1,31 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Result</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="/static/css/result.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
     <header>
-      <a href="/" class="logo-link">
-        <img src="/static/assets/logo1.png" alt="Logo" class="logo" />
-      </a>
-      <h1>Prediction Result</h1>
+        <a href="/" class="logo-link">
+            <img src="/static/assets/logo1.png" alt="Logo" class="logo">
+        </a>
+        <nav>
+            <a href="/research_paper">Research Paper</a>
+            <a href="/contactUs">Contact Us</a>
+            <a href="/aboutUs">About Us</a>
+            {% if session['user'] %}
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </nav>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
     </header>
 
-    <div id="result-container" class="result-container">
-      <div class="prediction-result">
-        <h2>Prediction</h2>
-        <p><strong>Class:</strong> {{ class_name }}</p>
-        <p><strong>Confidence:</strong> {{ confidence }}%</p>
-      </div>
-      <div class="uploaded-image">
-        <h2>Uploaded Image</h2>
-        <img src="data:image/png;base64,{{ img_data }}" alt="Uploaded Image" />
-      </div>
-    </div>
+    <!-- Result Section -->
+    <div class="result-container">
+        <!-- Left Section -->
+        <div class="result-left">
+            <h2>Prediction Result</h2>
+            <img src="{{ img_path }}" alt="Uploaded Image" class="result-image">
+            <p><strong>Predicted Disease:</strong> {{ class_name }}</p>
+            <p><strong>Model Confidence:</strong> {{ confidence }}%</p>
+            <a href="/" class="upload-btn">Upload Another Image</a>
+        </div>
 
-    <a href="/" class="button">Upload Another Image</a>
-  </body>
+        <!-- Right Section -->
+        <div class="result-right">
+            <h2>🌿 Cure and Remedies</h2>
+            <div id="remedy-markdown" class="remedy-box"></div>
+        </div>
+    </div>
+        <!-- Render markdown using marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        const rawMarkdown = `{{ remedies | safe }}`;
+        const html = marked.parse(rawMarkdown);
+        document.getElementById('remedy-markdown').innerHTML = html;
+    </script>
+</body>
 </html>

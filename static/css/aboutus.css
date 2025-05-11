@@ -93,6 +93,11 @@ header {
     z-index: 1000; /* Ensure it stays on top */
 }
 
+
+header nav a:hover {
+    color: #4CAF50;
+}
+
 nav {
     display: flex;
     gap: 10px;

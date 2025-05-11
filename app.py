@@ -11,27 +11,18 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from utils import load_keras_model, predict
+from utils import load_tflite_model, predict
+from euriai import EuriaiClient
+from werkzeug.utils import secure_filename
 
-# Load the Keras model (.h5)
-model = load_keras_model('saved_models/Plant_Disease_MobileNetV2_tuning.h5')
+# Initialize Euriai Client
+euriai_client = EuriaiClient(
+    api_key=os.getenv("EURIAI_API_KEY"),  # Add your Euriai API key to the .env file
+    model="gpt-4.1-nano"
+)
 
-# Class names (should match your training labels exactly)
-class_names = [
-    'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust', 'Apple___healthy',
-    'Background_without_leaves', 'Blueberry___healthy', 'Cherry___Powdery_mildew', 'Cherry___healthy',
-    'Corn___Cercospora_leaf_spot Gray_leaf_spot', 'Corn___Common_rust', 'Corn___Northern_Leaf_Blight',
-    'Corn___healthy', 'Grape___Black_rot', 'Grape___Esca_(Black_Measles)',
-    'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Grape___healthy',
-    'Orange___Haunglongbing_(Citrus_greening)', 'Peach___Bacterial_spot', 'Peach___healthy',
-    'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 'Potato___Early_blight',
-    'Potato___Late_blight', 'Potato___healthy', 'Raspberry___healthy', 'Soybean___healthy',
-    'Squash___Powdery_mildew', 'Strawberry___Leaf_scorch', 'Strawberry___healthy',
-    'Tomato___Bacterial_spot', 'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold',
-    'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite',
-    'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
-    'Tomato___healthy'
-]
+# Load the TFLite model
+interpreter = load_tflite_model('saved_models/Disease_Classifier.tflite')
 
 # Load environment variables
 load_dotenv()
@@ -61,32 +52,99 @@ def test_db():
         return "Database connection successful!"
     except Exception as e:
         return f"An error occurred: {e}"
+    
+# Directory to save uploaded images temporarily
+UPLOAD_FOLDER = 'static/uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         file = request.files.get('file')
-        if not file:
-            return jsonify({"status": "error", "message": "No file uploaded"}), 400
+
+        if not file or file.filename == '':
+            flash("❌ No file uploaded. Please try again.", "error")
+            return redirect(url_for('upload_file'))
+
         try:
-            img = Image.open(BytesIO(file.read()))
-            predicted_class, confidence = predict(model, img, class_names)
+            # Save uploaded file
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
 
-            img_data = BytesIO()
-            img.save(img_data, format='PNG')
-            img_data.seek(0)
-            img_base64 = base64.b64encode(img_data.getvalue()).decode('utf-8')
+            # Process image
+            img = Image.open(filepath).convert("RGB")
+            predicted_class, confidence = predict(interpreter, img)
 
-            return jsonify({
-                "status": "success",
-                "img_data": img_base64,
-                "class_name": predicted_class,
-                "confidence": confidence
-            })
+            # Custom message for healthy leaves
+            if "healthy" in predicted_class.lower():
+                remedies = "🌿 It's great to see that your plant is healthy! No issues detected — keep up the good care! 😊🌱"
+
+            elif predicted_class == "Background_without_leaves":
+                remedies = (
+                    "⚠️ The uploaded image seems to be just a background without any leaf. "
+                    "📸 Please upload an image containing a single clear leaf for accurate detection."
+                )
+            else:
+                euriai_prompt = (
+                    f"Detected plant disease: '{predicted_class}'. "
+                    f"Write a complete, friendly guide in markdown style (with emojis) explaining:\n"
+                    f"1. What the disease is 🦠\n"
+                    f"2. How to cure it 💊\n"
+                    f"3. Prevention methods 🛡️\n"
+                    f"4. Ayurvedic or natural remedies 🌿\n"
+                    f"Use structured points, be simple and encouraging. "
+                    f"Conclude the guide with a short positive message and 'End of guide.'"
+                )
+
+                euriai_response = euriai_client.generate_completion(
+                    prompt=euriai_prompt,
+                    temperature=0.7,
+                    max_tokens=700
+                )
+
+                remedies = euriai_response['choices'][0]['message']['content']
+
+            # Store session data
+            session['filename'] = filename
+            session['class_name'] = predicted_class
+            session['confidence'] = confidence
+            session['remedies'] = remedies
+
+            return redirect(url_for('result'))
+
         except Exception as e:
-            return jsonify({"status": "error", "message": str(e)}), 500
+            print("Error during upload:", e)
+            flash("❌ Upload failed. Please try again.", "error")
+            return redirect(url_for('upload_file'))
 
     return render_template('index.html')
+
+
+@app.route('/result')
+def result():
+    """Render the result page."""
+    # Retrieve prediction details from the session
+    filename = session.get('filename')
+    class_name = session.get('class_name')
+    confidence = session.get('confidence')
+    remedies = session.get('remedies')
+
+    if not filename or not class_name or not confidence:
+        flash("No prediction data found. Please upload an image first.", "warning")
+        return redirect(url_for('upload_file'))
+
+    # Build the image path to display in the result page
+    img_path = url_for('static', filename=f'uploads/{filename}')
+
+    return render_template(
+        'result.html',
+        img_path=img_path,
+        class_name=class_name,
+        confidence=confidence,
+        remedies=remedies
+    )
 
 @app.route('/google-login', methods=['POST'])
 def google_login():
@@ -243,26 +301,6 @@ def register():
     except Exception as e:
         print(f"Error during registration: {e}")
         return jsonify({"status": "error", "message": "Internal Server Error"}), 500
-    
-@app.route('/result')
-def result():
-    """Render the result page."""
-    # Retrieve prediction details from the session
-    img_data = session.get('img_data')
-    class_name = session.get('class_name')
-    confidence = session.get('confidence')
-
-    if not img_data or not class_name or not confidence:
-        flash("No prediction data found. Please upload an image first.", "warning")
-        return redirect(url_for('upload_file'))
-
-    return render_template(
-        'result.html',
-        img_data=img_data,
-        class_name=class_name,
-        confidence=confidence
-    )
-
 
 if __name__ == '__main__':
     app.run(debug=True)

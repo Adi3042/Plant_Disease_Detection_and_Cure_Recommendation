@@ -61,6 +61,11 @@ nav a:hover {
   font-size: 24px;
 }
 
+
+header nav a:hover {
+    color: #4CAF50;
+}
+
 @media (max-width: 768px) {
   nav {
     display: none;

@@ -37,7 +37,7 @@
     <!-- Upload Section -->
     <div id="upload-container" class="upload-container">
         <h2 class="upload-title">🌿 Drag & Drop Image Here or Capture Live 🌿</h2>
-        <form id="upload-form" enctype="multipart/form-data">
+        <form id="upload-form" method="POST" action="/" enctype="multipart/form-data">
             <input type="file" name="file" id="file" accept="image/*" required>
             <label for="file" id="file-label">Choose a file</label>
             <input type="submit" value="Upload">
@@ -45,19 +45,6 @@
         <button id="capture-btn" class="capture-btn">Capture Live</button>
         <div id="camera-container" class="camera-container" style="display: none;">
             <video id="live-video" autoplay></video>
-        </div>
-    </div>
-
-    <!-- Result Section -->
-    <div id="result-container" class="result-container" style="display: none;">
-        <div class="prediction-result">
-            <h2>Prediction</h2>
-            <p><strong>Class:</strong> <span id="predicted-class"></span></p>
-            <p><strong>Confidence:</strong> <span id="confidence"></span>%</p>
-        </div>
-        <div class="uploaded-image">
-            <h2>Uploaded Image</h2>
-            <img id="uploaded-image" src="" alt="Uploaded Image" style="max-width: 300px; border-radius: 8px;">
         </div>
     </div>
 

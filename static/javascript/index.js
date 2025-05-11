@@ -119,45 +119,6 @@ fileInput.addEventListener('change', function () {
     }
 });
 
-uploadForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    if (fileInput.files.length === 0) {
-        alert('Please upload or drag and drop an image first.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', fileInput.files[0]);
-
-    fetch('/', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.status === 'success') {
-            let resultContainer = document.getElementById(resultContainerId);
-            if (!resultContainer) {
-                resultContainer = document.createElement('div');
-                resultContainer.id = resultContainerId;
-                uploadContainer.appendChild(resultContainer);
-            }
-            resultContainer.innerHTML = `
-                <h3>Prediction: ${result.class_name}</h3>
-                <p>Confidence: ${result.confidence}%</p>
-                <img src="data:image/png;base64,${result.img_data}" alt="Uploaded Image" style="max-width: 300px; border-radius: 8px;">
-            `;
-        } else {
-            alert("Error: " + result.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Upload failed. Please try again.');
-    });
-});
-
 // Drag events
 uploadContainer.addEventListener('dragover', (event) => {
     event.preventDefault();

@@ -36,6 +36,9 @@ nav a {
   transition: color 0.3s, border 0.3s;
 }
 
+header nav a:hover {
+    color: #4CAF50;
+}
 
 nav a:hover {
   color: var(--navbar-hover-color, #007BFF); /* Hover text color */

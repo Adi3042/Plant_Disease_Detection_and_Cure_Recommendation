@@ -14,19 +14,39 @@ def connect_to_mongodb(uri):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
+    
+class_names = [
+    'Apple Black Rot', 'Apple Scab', 'Blueberry Healthy', 'Cedar Apple', 'Cherry Healthy', 'Cherry Powdery Mildew',
+    'Corn (maize) Cercospora leaf spot', 'Corn (maize) Healthy', 'Corn (maize) Northern Leaf Blight', 'Corn (maize) Rust',
+    'Grape Black Measles', 'Grape Black Rot', 'Grape Healthy', 'Grape Leaf Blight', 'Healthy Apple', 'Orange Black Spot',
+    'Orange Canker', 'Orange Fresh', 'Orange Grenning', 'Orange Haunglongbing', 'Peach Bacterial Spot', 'Peach Healthy',
+    'Pepper Bell Bacterial Spot', 'Pepper Bell Healthy', 'Potato Early Blight', 'Potato Healthy', 'Potato Late Blight',
+    'Raspberry Healthy', 'Rice Bacterial Blight', 'Rice Blast', 'Rice Brownspot', 'Rice Tungro', 'Soybean Healthy',
+    'Squash Powdery Mildew', 'Strawberry Healthy', 'Strawberry Leaf Scorch', 'Sugarcane Healthy', 'Sugarcane Mosaic',
+    'Sugarcane RedRot', 'Sugarcane Rust', 'Sugarcane Yellow', 'Tomato Bacterial Spot', 'Tomato Early Blight', 'Tomato Healthy',
+    'Tomato Late Blight', 'Tomato Leaf Mold', 'Tomato Mosaic Virus', 'Tomato Septoria Leaf Spot', 'Tomato Spider Mites',
+    'Tomato Target Spot', 'Tomato Yellow Leaf Curl Virus'
+]
 
-# Load the Keras .h5 model
-def load_keras_model(model_path):
-    return load_model(model_path)
+# Load the TFLite model and allocate tensors
+def load_tflite_model(model_path):
+    interpreter = tf.lite.Interpreter(model_path=model_path)
+    interpreter.allocate_tensors()
+    return interpreter
 
-# Predict function using the Keras model
-def predict(model, img, class_names):
-    img = img.resize((128, 128))
-    img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
+def predict(interpreter, img):
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
 
-    predictions = model.predict(img_array)
-    predicted_class = class_names[np.argmax(predictions[0])]
-    confidence = round(100 * np.max(predictions[0]), 2)
+    img = img.resize((128, 128))  # Resize image to match model input size
+    img_array = np.expand_dims(np.array(img), axis=0).astype(np.float32)
+
+    interpreter.set_tensor(input_details[0]['index'], img_array)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+
+    predicted_class = class_names[np.argmax(output_data[0])]
+    confidence = round(100 * np.max(output_data[0]), 2)
     return predicted_class, confidence
 
 def validate_signup_form(username, password, confirmpassword, mobileno, countrycode):
