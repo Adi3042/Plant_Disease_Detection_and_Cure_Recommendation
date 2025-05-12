@@ -47,8 +47,8 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--navbar-hover-color, #007BFF); /* Hover text color */
-  border-bottom: 2px solid #007BFF; /* Underline effect on hover */
+    color: #4CAF50;
+    border-bottom: 2px solid #4CAF50;
 }
 
 /* Responsive Navigation Bar */
@@ -229,8 +229,8 @@ a.cta:hover {
 }
 
 .banner {
-  background: -webkit-gradient(linear, left top, right top, from(rgba(241, 157, 0, 0.8)), to(rgba(0, 0, 0, 0.5))), url(/static/assets/banner.jpg) no-repeat;
-  background: linear-gradient(90deg, rgba(241, 157, 0, 0.8), rgba(0, 0, 0, 0.5)), url(/static/assets/banner.jpg) no-repeat;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(241, 157, 0, 0.8)), to(rgba(0, 0, 0, 0.5))), url(/static/assets/banner.png) no-repeat;
+  background: linear-gradient(90deg, rgba(241, 157, 0, 0.8), rgba(0, 0, 0, 0.5)), url(/static/assets/banner.png) no-repeat;
   background-position: top right;
   background-size: cover;
 }
@@ -337,7 +337,11 @@ a.cta:hover {
 }
 
 .four .container {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
 }
 
 @media (min-width: 768px) {
@@ -351,6 +355,34 @@ a.cta:hover {
   }
 }
 
+.member {
+  background: #111;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  padding: 1.5rem;
+  width: 280px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
+}
+
+.member:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.5);
+  border-image: linear-gradient(45deg, #00ff99, #00ccff, #ff00cc, #00ff99) 1;
+  animation: borderGlow 4s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% { border-image-source: linear-gradient(0deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  25% { border-image-source: linear-gradient(90deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  50% { border-image-source: linear-gradient(180deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  75% { border-image-source: linear-gradient(270deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  100% { border-image-source: linear-gradient(360deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+}
+
 .four .container .member {
   background-color: #c0c6fa;
   padding: 20px;
@@ -358,6 +390,21 @@ a.cta:hover {
   border-radius: 5px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.social a {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social a:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px #00ffcc);
 }
 
 @media (min-width: 768px) {

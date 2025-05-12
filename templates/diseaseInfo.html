@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Info | Plant Disease Detection</title>
+    <link rel="stylesheet" href="/static/css/disease_info.css">
+    <script src="/static/js/disease_info.js" defer></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <a href="/" class="logo-link">
+            <img src="/static/assets/logo1.png" alt="Logo" class="logo">
+        </a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/research_paper">Research Paper</a>
+            <a href="/contactUs">Contact Us</a>
+            <a href="/aboutUs">About Us</a>
+        </nav>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for a disease...">
+    </div>
+
+    <!-- Disease Cards -->
+    <div class="disease-container" id="diseaseList">
+        <!-- Disease Block 1 -->
+        <div class="disease-card">
+            <img src="/static/assets/apple_scab.jpg" alt="Apple Scab">
+            <div class="disease-info">
+                <h2>Apple Scab</h2>
+                <p><strong>🦠 What the disease is:</strong><br>Apple scab is caused by the fungus *Venturia inaequalis*. It creates dark, scabby lesions on leaves and fruits.</p>
+                <p><strong>💊 How to cure it:</strong><br>Use fungicides such as Captan or Mancozeb, especially in early spring.</p>
+                <p><strong>🛡️ Prevention methods:</strong><br>Plant resistant varieties, prune trees to improve airflow, and remove fallen leaves.</p>
+                <p><strong>🌿 Ayurvedic/natural remedies:</strong><br>Neem oil spray weekly in early spring.</p>
+                <p><strong>💊 English Medicine/pesticides:</strong><br>Captan 50WP, Sulphur-based fungicides.</p>
+            </div>
+        </div>
+
+        <!-- Disease Block 2 -->
+        <div class="disease-card">
+            <img src="/static/assets/corn_rust.jpg" alt="Corn Rust">
+            <div class="disease-info">
+                <h2>Corn Rust</h2>
+                <p><strong>🦠 What the disease is:</strong><br>Corn rust is caused by the fungus *Puccinia sorghi*. It appears as orange or brown pustules on leaves.</p>
+                <p><strong>💊 How to cure it:</strong><br>Apply fungicides like Propiconazole or Tebuconazole.</p>
+                <p><strong>🛡️ Prevention methods:</strong><br>Plant resistant hybrids and rotate crops to reduce fungal spores.</p>
+                <p><strong>🌿 Ayurvedic/natural remedies:</strong><br>Spray a mixture of garlic extract and water on affected leaves.</p>
+                <p><strong>💊 English Medicine/pesticides:</strong><br>Propiconazole-based fungicides.</p>
+            </div>
+        </div>
+
+        <!-- Disease Block 3 -->
+        <div class="disease-card">
+            <img src="/static/assets/tomato_leaf_mold.jpg" alt="Tomato Leaf Mold">
+            <div class="disease-info">
+                <h2>Tomato Leaf Mold</h2>
+                <p><strong>🦠 What the disease is:</strong><br>Tomato leaf mold is caused by the fungus *Passalora fulva*. It causes yellow spots on leaves that turn brown over time.</p>
+                <p><strong>💊 How to cure it:</strong><br>Use fungicides like Chlorothalonil or Copper-based sprays.</p>
+                <p><strong>🛡️ Prevention methods:</strong><br>Ensure good ventilation in greenhouses and avoid overhead watering.</p>
+                <p><strong>🌿 Ayurvedic/natural remedies:</strong><br>Spray diluted neem oil on affected plants.</p>
+                <p><strong>💊 English Medicine/pesticides:</strong><br>Copper oxychloride, Chlorothalonil.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

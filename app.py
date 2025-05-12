@@ -230,6 +230,26 @@ def about_us():
     """Render the About Us page."""
     return render_template('aboutus.html')
 
+@app.route('/faq')
+def faq():
+    """Render the FAQ page."""
+    return render_template('faq.html')
+
+@app.route('/privacy-policy')
+def privacy_policy():
+    """Render the Privacy Policy page."""
+    return render_template('privacy-policy.html')
+
+@app.route('/terms')
+def terms():
+    """Render the Terms and Conditions page."""
+    return render_template('terms.html')
+
+@app.route('/diseaseInfo')
+def disease_info():
+    """Render the Disease Info page."""
+    return render_template('diseaseInfo.html')
+
 @app.route('/login')
 def login():
     """Render the Login page."""

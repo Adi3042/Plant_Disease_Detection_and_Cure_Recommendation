@@ -6,6 +6,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
 header {
   width: 100%;
   padding: 10px 20px;
@@ -13,10 +14,12 @@ header {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  background-color:#D3D3D3;
+  background-color: #e6f0d5; /* Light herbal green background */
   top: 0;
   left: 0;
-  z-index: 1000; /* Ensure it stays on top */
+  z-index: 1000;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo-link {
@@ -37,7 +40,7 @@ nav {
 }
 
 nav a {
-  color: var(--navbar-color, black); /* Default text color */
+    color: var(--navbar-color, black); /* Default text color */
   font-size: 18px;
   text-decoration: none;
   padding: 5px 9px;
@@ -47,8 +50,8 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--navbar-hover-color, #007BFF); /* Hover text color */
-  border-bottom: 2px solid #007BFF; /* Underline effect on hover */
+  color: #6aa84f; /* Softer green on hover */
+  border-bottom: 2px solid #6aa84f;
 }
 
 /* Responsive Navigation Bar */
@@ -60,7 +63,6 @@ nav a:hover {
 .hamburger i {
   font-size: 24px;
 }
-
 
 header nav a:hover {
     color: #4CAF50;

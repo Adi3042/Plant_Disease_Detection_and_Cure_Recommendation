@@ -1,0 +1,110 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('/static/assets/banner.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+header {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(76, 175, 80, 0.9); /* Semi-transparent green */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 35px;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 5px 10px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    transition: color 0.3s, border 0.3s;
+}
+
+nav a:hover {
+    color: #FFD700;
+    border-bottom: 2px solid #FFD700;
+}
+
+.search-bar {
+    margin: 80px auto 20px;
+    text-align: center;
+}
+
+.search-bar input {
+    width: 80%;
+    max-width: 500px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.disease-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.disease-card {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.disease-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.disease-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.disease-info {
+    padding: 15px;
+}
+
+.disease-info h2 {
+    font-size: 20px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.disease-info p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}

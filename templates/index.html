@@ -6,14 +6,9 @@
     <title>Plant Leaf Disease Detection</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="icon" href="/static/assets/logo1.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Background Video -->
-    <video class="background-video" autoplay loop muted>
-        <source src="/static/assets/plan2.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
     <header>
         <a href="/" class="logo-link">
             <img src="/static/assets/logo1.png" alt="Logo" class="logo">
@@ -34,41 +29,157 @@
         </div>
     </header>
 
+    <!-- Add this to your body section -->
+    <div class="background-overlay"></div>
+    
     <!-- Upload Section -->
     <div id="upload-container" class="upload-container">
-        <h2 class="upload-title">🌿 Drag & Drop Image Here or Capture Live 🌿</h2>
+        <div class="upload-icon">
+            <i class="fas fa-leaf"></i>
+            <i class="fas fa-arrow-down"></i>
+            <i class="fas fa-microscope"></i>
+        </div>
+        <h2 class="upload-title">🌿 Plant Disease Detection System 🌿</h2>
+        <p class="upload-subtitle">Upload an image of a plant leaf to detect potential diseases</p>
+        
         <form id="upload-form" method="POST" action="/" enctype="multipart/form-data">
-            <input type="file" name="file" id="file" accept="image/*" required>
-            <label for="file" id="file-label">Choose a file</label>
-            <input type="submit" value="Upload">
+            <div class="upload-area" id="drop-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & drop your image here</p>
+                <span>or</span>
+                <input type="file" name="file" id="file" accept="image/*" required>
+                <label for="file" id="file-label" class="browse-btn">Browse Files</label>
+            </div>
+            <input type="submit" value="Analyze Image" class="analyze-btn">
         </form>
-        <button id="capture-btn" class="capture-btn">Capture Live</button>
-        <div id="camera-container" class="camera-container" style="display: none;">
-            <video id="live-video" autoplay></video>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <button id="capture-btn" class="capture-btn">
+            <i class="fas fa-camera"></i> Capture Live Image
+        </button>
+    </div>
+
+    <section class="features">
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                    <div class="pulse-effect"></div>
+                </div>
+                <h3>Fast Detection</h3>
+                <p>Get instant results with our AI-powered plant disease scanner</p>
+                <div class="feature-hover">
+                    <div class="disease-animation"></div>
+                    <p>Detects 10+ common plant diseases in seconds</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microscope"></i>
+                    <div class="pulse-effect"></div>
+                </div>
+                <h3>Precision Analysis</h3>
+                <p>99% accurate identification with deep learning algorithms</p>
+                <div class="feature-hover">
+                    <div class="disease-animation"></div>
+                    <p>Identifies early-stage symptoms before they're visible</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                    <div class="pulse-effect"></div>
+                </div>
+                <h3>Actionable Reports</h3>
+                <p>Personalized treatment plans for healthier plants</p>
+                <div class="feature-hover">
+                    <div class="disease-animation"></div>
+                    <p>Includes organic and chemical treatment options</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <!-- Left Column - Brand Info -->
+            <div class="footer-section about">
+                <h3>PrakritiPath</h3>
+                <p>
+                    Cultivating Crops with Nature’s Wisdom<br>
+                    aditya523523@gmail.com<br>
+                    Prayagraj, Uttar Pradesh, 233001
+                </p>
+            </div>
+            
+            <!-- Middle Column - Quick Links 1 -->
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/aboutUs">About Us</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms & Conditions</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <!-- Right Column - Quick Links 2 -->
+            <div class="footer-section links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="/research_paper">Research Paper</a></li>
+                    <li><a href="/disease_info">Disease Info</a></li>
+                    <li><a href="/contactUs">Contact Us</a></li>
+                    <li><a href="/login">Sign In</a></li>
+                </ul>
+            </div>
+            
+            <!-- Social Column -->
+            <div class="footer-section social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Plant Disease Detection System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Google Sign-In Button
+    <div class="auth-container">
+        <h3>Sign in for full features</h3>
+        <div class="auth-buttons">
+            <div id="g_id_onload"
+                data-client_id="{{ google_client_id }}"
+                data-auto_prompt="false"
+                data-scope="https://www.googleapis.com/auth/gmail.readonly">
+            </div>
+            <div class="g_id_signin" 
+                data-type="standard"
+                data-shape="pill"
+                data-theme="outline"
+                data-text="continue_with"
+                data-size="large"
+                data-logo_alignment="left">
+            </div>
         </div>
     </div>
 
-    <!-- Google Sign-In Button -->
-    <div id="g_id_onload"
-         data-client_id="{{ google_client_id }}"
-         data-auto_prompt="false"
-         data-scope="https://www.googleapis.com/auth/gmail.readonly">
-    </div>
-
-    <div class="g_id_signin" id="g_id_signin"
-         data-type="standard"
-         data-shape="rectangular"
-         data-theme="filled_black"
-         data-text="continue_with"
-         data-size="large"
-         data-logo_alignment="left">
-    </div>
-
-    <!-- Button to Access Gmail -->
-    <button onclick="requestGmailAccess()">Access Gmail</button>
+     Button to Access Gmail -->
+    <!-- <button onclick="requestGmailAccess()">Access Gmail</button> -->
 
     <!-- Load Google Identity Services script -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="/static/javascript/index.js"></script>
+    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/static/javascript/index.js"></script>  -->
 </body>
 </html>
