@@ -6,7 +6,6 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-
 header {
   width: 100%;
   padding: 10px 20px;
@@ -14,12 +13,10 @@ header {
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  background-color: #e6f0d5; /* Light herbal green background */
+  background-color:#D3D3D3;
   top: 0;
   left: 0;
-  z-index: 1000;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it stays on top */
 }
 
 .logo-link {
@@ -40,7 +37,7 @@ nav {
 }
 
 nav a {
-    color: var(--navbar-color, black); /* Default text color */
+  color: var(--navbar-color, black); /* Default text color */
   font-size: 18px;
   text-decoration: none;
   padding: 5px 9px;
@@ -50,8 +47,8 @@ nav a {
 }
 
 nav a:hover {
-  color: #6aa84f; /* Softer green on hover */
-  border-bottom: 2px solid #6aa84f;
+    color: #4CAF50;
+    border-bottom: 2px solid #4CAF50;
 }
 
 /* Responsive Navigation Bar */
@@ -62,10 +59,6 @@ nav a:hover {
 
 .hamburger i {
   font-size: 24px;
-}
-
-header nav a:hover {
-    color: #4CAF50;
 }
 
 @media (max-width: 768px) {
@@ -100,6 +93,9 @@ header nav a:hover {
   }
 }
 
+header nav a:hover {
+    color: #4CAF50;
+}
 
 body {
   margin: 0;
@@ -233,8 +229,8 @@ a.cta:hover {
 }
 
 .banner {
-  background: -webkit-gradient(linear, left top, right top, from(rgba(241, 157, 0, 0.575)), to(rgba(0, 0, 0, 0.5))), url(/static/assets/paper\ 1.jpg) no-repeat;
-  background: linear-gradient(90deg, rgba(241, 157, 0, 0.552), rgba(0, 0, 0, 0.5)), url(/static/assets/paper\ 1.jpg) no-repeat;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(241, 157, 0, 0.8)), to(rgba(0, 0, 0, 0.5))), url(/static/assets/banner.png) no-repeat;
+  background: linear-gradient(90deg, rgba(241, 157, 0, 0.8), rgba(0, 0, 0, 0.5)), url(/static/assets/banner.png) no-repeat;
   background-position: top right;
   background-size: cover;
 }
@@ -341,7 +337,11 @@ a.cta:hover {
 }
 
 .four .container {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
 }
 
 @media (min-width: 768px) {
@@ -355,6 +355,34 @@ a.cta:hover {
   }
 }
 
+.member {
+  background: #111;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  padding: 1.5rem;
+  width: 280px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
+}
+
+.member:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.5);
+  border-image: linear-gradient(45deg, #00ff99, #00ccff, #ff00cc, #00ff99) 1;
+  animation: borderGlow 4s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% { border-image-source: linear-gradient(0deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  25% { border-image-source: linear-gradient(90deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  50% { border-image-source: linear-gradient(180deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  75% { border-image-source: linear-gradient(270deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+  100% { border-image-source: linear-gradient(360deg, #00ff99, #00ccff, #ff00cc, #00ff99); }
+}
+
 .four .container .member {
   background-color: #c0c6fa;
   padding: 20px;
@@ -362,6 +390,21 @@ a.cta:hover {
   border-radius: 5px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.social a {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social a:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px #00ffcc);
 }
 
 @media (min-width: 768px) {
@@ -430,20 +473,127 @@ a.cta:hover {
   max-width: 800px;
 }
 
+/* Footer Styles */
 footer {
-  background-color: #222222;
-  padding: 40px 15px;
+    background-color: #142830 !important;
+    color: #c2d6d6;
+    padding: 0;
+    border-top: 1px solid #1e3a3a;
+    box-shadow: 0 -4px 15px rgba(0, 20, 15, 0.5);
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin-top: 120px;
+    text-align: center;
 }
 
-footer .container {
-  max-width: 600px;
+.footer-content {
+    background-color: #142830;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 15px 5px;
+    text-align: center;
 }
 
-footer p {
-  color: #FFFFFF;
-  margin: 0;
-  text-align: center;
-  font-weight: 100;
-  font-size: 14px;
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 0px;
+    padding: 0 0px;
+    text-align: center;
 }
-/*# sourceMappingURL=style.css.map */
+
+.footer-section.about {
+    flex: 2;
+    text-align: center;
+}
+
+.footer-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #8ab4b4;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.footer-section p {
+    color: #9cbeb8;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    padding-left: 5px;
+    border-left: 2px solid transparent;
+    text-align: center;
+}
+
+.footer-section ul li a {
+    color: #8db3b3;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+}
+
+.footer-section ul li:hover {
+    border-left: 2px solid #3a7a7a;
+    padding-left: 2px;
+    text-align: center;
+}
+
+.footer-section ul li a:hover {
+    color: #d1e9e9;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 28px;
+    text-align: center;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 22px;
+    color: #8db3b3;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.social-icons a:hover {
+    color: #65efef;
+    transform: translateY(-3px) scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-section {
+        min-width: 100%;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+        text-align: center;
+    }
+}

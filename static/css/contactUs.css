@@ -41,8 +41,8 @@ header nav a:hover {
 }
 
 nav a:hover {
-    color: #4CAF50;
-    border-bottom: 2px solid #4CAF50;
+    color: #8bc34a; /* Lighter, healthier plant green */
+    border-bottom: 2px solid #689f38; /* Slightly darker green */
 }
 
 .hamburger {
@@ -85,7 +85,6 @@ nav a:hover {
     }
 }
 
-
 /* Importing fonts from Google Fonts API */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lexend:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
@@ -97,8 +96,8 @@ nav a:hover {
 
 /* Setting font family for the body */
 body {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    background: #061e32;
+    font-family: 'Poppins', sans-serif;
+    background: #142830;
 }
 
 /* Container for the main content */
@@ -141,9 +140,12 @@ body {
 .container-right {
     flex-basis: 40%;
     padding: 40px 60px;
-    background: hsl(207, 95%, 55%);
     color: #ffffff;
     border-radius: 0px 20px 20px 0px;
+    background: #4a7c3d; /* Healthy leaf green */
+    background-image: 
+        linear-gradient(135deg, rgba(58, 94, 47, 0.8) 0%, rgba(106, 156, 80, 0.6) 100%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="%2336622a" d="M30,10 Q40,5 50,10 T55,20 Q60,30 55,40 T50,55 Q40,60 30,55 T10,50 Q5,40 10,30 T20,10 Q25,5 30,10 Z" opacity="0.1"/></svg>');
 }
 
 /* Styling for heading inside left container */
@@ -180,12 +182,12 @@ input {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
 } 
 
 /* Styling for textareas */
 textarea {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     width: 100%;
     border: 1px solid #ccc;
@@ -206,10 +208,10 @@ label {
 
 /* Styling for buttons */
 button {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 15px;
-    background: #000000;
+    background: #558b2f;
     border: none;
     outline: none;
     color: #fff;
@@ -224,7 +226,7 @@ button {
 /* Hover styling for buttons */
 button:hover {
     color: #fff;
-    background: hsl(207, 97%, 35%);
+    background: #7cb342;
     box-shadow: 0px 5px 10px 0px hsla(207, 97%, 35%, 0.431);
 }
 
@@ -387,5 +389,141 @@ iframe {
         font-size: 15px;
         font-weight: 600;
         padding-right: 10px;
+    }
+}
+
+/* Footer Styles */
+footer {
+    background-color: #142830 !important;
+    color: #c2d6d6;
+    padding: 0;
+    border-top: 1px solid #1e3a3a;
+    box-shadow: 0 -4px 15px rgba(0, 20, 15, 0.5);
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin-top: 120px;
+    text-align: center;
+}
+
+.footer-content {
+    background-color: #142830;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 15px 15px;
+    text-align: center;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 0px;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.footer-section.about {
+    flex: 2;
+    text-align: center;
+}
+
+.footer-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #8ab4b4;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.footer-section p {
+    color: #9cbeb8;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    padding-left: 5px;
+    border-left: 2px solid transparent;
+    text-align: center;
+}
+
+.footer-section ul li a {
+    color: #8db3b3;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+}
+
+.footer-section ul li:hover {
+    border-left: 2px solid #3a7a7a;
+    padding-left: 2px;
+    text-align: center;
+}
+
+.footer-section ul li a:hover {
+    color: #d1e9e9;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 28px;
+    text-align: center;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 22px;
+    color: #8db3b3;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.social-icons a:hover {
+    color: #65efef;
+    transform: translateY(-3px) scale(1.1);
+}
+
+.footer-bottom {
+    background: #07120f !important;
+    text-align: center;
+    padding: 15px;
+    color: #79f8f8;
+    font-size: 13px;
+    width: 100%;
+    margin-top: 0px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-section {
+        min-width: 100%;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+        text-align: center;
     }
 }
