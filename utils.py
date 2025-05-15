@@ -48,22 +48,3 @@ def predict(interpreter, img):
     predicted_class = class_names[np.argmax(output_data[0])]
     confidence = round(100 * np.max(output_data[0]), 2)
     return predicted_class, confidence
-
-def validate_signup_form(username, password, confirmpassword, mobileno, countrycode):
-    if len(username) < 4:
-        return "Username must be at least 4 characters long."
-
-    if len(password) < 8 or not re.search(r'[A-Za-z]', password) or not re.search(r'\d', password) or not re.search(r'[^\w\s]', password):
-        return "Password must be at least 8 characters long, with 1 letter, 1 digit, and 1 symbol."
-
-    if password != confirmpassword:
-        return "Passwords do not match."
-
-    if countrycode == "+91" and len(mobileno) != 10:
-        return "Mobile number for India must be 10 digits."
-    elif countrycode == "+1" and len(mobileno) != 10:
-        return "Mobile number for US must be 10 digits."
-    elif countrycode == "+44" and len(mobileno) != 11:
-        return "Mobile number for UK must be 11 digits."
-
-    return None

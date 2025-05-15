@@ -1,17 +1,28 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Conditions - Plant Disease Detection</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/policy.css">
+    <title>🌿 Terms & Conditions - PlantDisease Detector 🌿</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/static/css/privacy_policy.css">
+    <link rel="stylesheet" href="/static/css/terms.css">
 </head>
 <body>
-    <header>
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <i class="fas fa-leaf fa-spin" style="margin-right: 15px;"></i>
+            Loading Terms & Conditions...
+        </div>
+    </div>
+
+    <header id="mainHeader">
         <a href="/" class="logo-link">
-            <img src="/static/assets/logo1.png" alt="Logo" class="logo">
+            <img src="/static/assets/logo1.png" alt="PlantDisease Detector Logo" class="logo">
         </a>
         <nav>
             <a href="/">Home</a>
@@ -24,74 +35,158 @@
         </div>
     </header>
 
-    <main class="policy-container">
-        <h1>Terms & Conditions</h1>
-        <p class="last-updated">Last Updated: June 10, 2023</p>
-        
-        <section class="policy-section">
-            <h2>1. Acceptance of Terms</h2>
-            <p>By accessing or using the Plant Disease Detection service, you agree to be bound by these Terms and Conditions.</p>
-        </section>
-
-        <section class="policy-section">
-            <h2>2. Service Description</h2>
-            <p>Plant Disease Detection provides an AI-powered platform for identifying plant diseases from images. The service is intended for informational purposes only.</p>
-        </section>
-
-        <section class="policy-section">
-            <h2>3. User Responsibilities</h2>
-            <ul>
-                <li>You must provide accurate information when creating an account</li>
-                <li>You are responsible for maintaining the confidentiality of your account</li>
-                <li>You agree not to use the service for any illegal purpose</li>
-            </ul>
-        </section>
-
-        <section class="policy-section">
-            <h2>4. Intellectual Property</h2>
-            <p>All content included on this site, such as text, graphics, logos, and software, is the property of Plant Disease Detection and protected by copyright laws.</p>
-        </section>
-
-        <section class="policy-section">
-            <h2>5. Limitation of Liability</h2>
-            <p>Plant Disease Detection shall not be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the service.</p>
-        </section>
-
-        <section class="policy-section">
-            <h2>6. Changes to Terms</h2>
-            <p>We reserve the right to modify these terms at any time. Your continued use of the service constitutes acceptance of the modified terms.</p>
-        </section>
-
-        <section class="policy-section">
-            <h2>7. Governing Law</h2>
-            <p>These Terms shall be governed by and construed in accordance with the laws of the State of California.</p>
-        </section>
+    <main>
+        <div class="terms-container">
+            <!-- Decorative leaves -->
+            <div class="leaf-decoration top-right">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="leaf-decoration bottom-left">
+                <i class="fas fa-seedling"></i>
+            </div>
+            
+            <div class="terms-header">
+                <h1>Terms & Conditions</h1>
+                <p>Last Updated: May 14, 2025</p>
+            </div>
+            
+            <div class="terms-highlight">
+                <h3>Our Commitment to You</h3>
+                <p>These terms govern your use of PlantDisease Detector's AI-powered plant health services. By using our platform, you're agreeing to cultivate a respectful digital ecosystem where technology and nature thrive together.</p>
+            </div>
+            
+            <div class="terms-section">
+                <h2>1. Service Description</h2>
+                <div class="terms-content">
+                    <p>PlantDisease Detector provides an AI-based plant health analysis platform that offers:</p>
+                    <ul>
+                        <li>Automated plant disease detection with 99.37% accuracy</li>
+                        <li>Personalized treatment recommendations</li>
+                        <li>Preventive care suggestions</li>
+                        <li>Research-grade plant health insights</li>
+                    </ul>
+                    <p>Our service is designed for personal, non-commercial use by plant enthusiasts, gardeners, and small-scale farmers.</p>
+                </div>
+            </div>
+            
+            <div class="terms-section">
+                <h2>2. User Responsibilities</h2>
+                <div class="terms-content">
+                    <p>As a user of PlantDisease Detector, you agree to:</p>
+                    <ul>
+                        <li>Provide accurate information about your plants when requested</li>
+                        <li>Upload only clear, properly focused images of plants</li>
+                        <li>Not use the service for illegal or harmful purposes</li>
+                        <li>Not attempt to reverse-engineer our AI models</li>
+                        <li>Not overload our systems with excessive requests</li>
+                    </ul>
+                    <p>Commercial use requires prior written permission from PlantDisease Detector.</p>
+                </div>
+            </div>
+            
+            <div class="terms-section">
+                <h2>3. Intellectual Property</h2>
+                <div class="terms-content">
+                    <p>The PlantDisease Detector platform contains proprietary technology protected by copyright and other intellectual property laws:</p>
+                    <ul>
+                        <li>All AI models, algorithms, and datasets remain our exclusive property</li>
+                        <li>You retain ownership of any plant images you upload</li>
+                        <li>Analysis results are provided for your personal use only</li>
+                        <li>Research citations must credit PlantDisease Detector when using our data</li>
+                    </ul>
+                    <p>Unauthorized use of our technology may result in legal action.</p>
+                </div>
+            </div>
+            
+            <div class="terms-section">
+                <h2>4. Limitations of Service</h2>
+                <div class="terms-content">
+                    <p>While we strive for accuracy, PlantDisease Detector has certain limitations:</p>
+                    <ul>
+                        <li>Results are probabilistic and should be verified by a horticulture expert for critical decisions</li>
+                        <li>Effectiveness depends on image quality and plant visibility</li>
+                        <li>Rare plant species may not be recognized accurately</li>
+                        <li>We cannot guarantee treatment outcomes</li>
+                    </ul>
+                    <p>PlantDisease Detector is not liable for agricultural losses based on our recommendations.</p>
+                </div>
+            </div>
+            
+            <div class="terms-section">
+                <h2>5. Account Termination</h2>
+                <div class="terms-content">
+                    <p>We reserve the right to terminate accounts that:</p>
+                    <ul>
+                        <li>Violate these terms or our privacy policy</li>
+                        <li>Engage in abusive behavior toward our team</li>
+                        <li>Attempt to compromise system security</li>
+                        <li>Use bots or automated tools to access our services</li>
+                    </ul>
+                    <p>You may terminate your account at any time through your account settings.</p>
+                </div>
+            </div>
+            
+            <div class="terms-section">
+                <h2>6. Modifications to Terms</h2>
+                <div class="terms-content">
+                    <p>We may update these terms periodically to reflect:</p>
+                    <ul>
+                        <li>Changes in our service offerings</li>
+                        <li>New legal or regulatory requirements</li>
+                        <li>Improvements to our policies</li>
+                    </ul>
+                    <p>Significant changes will be communicated via email to registered users. Continued use after changes constitutes acceptance.</p>
+                </div>
+            </div>
+            
+            <div class="acceptance-section">
+                <p>By using PlantDisease Detector, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.</p>
+                <p>Together, let's grow a healthier plant ecosystem.</p>
+            </div>
+        </div>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>PrakritiPath</h3>
-                <p>Helping farmers and gardeners identify plant diseases quickly and accurately.</p>
+                <h3>PlantDisease Detector</h3>
+                <p>Revolutionizing plant health monitoring with our 99.37% accurate, IEEE-reviewed AI technology.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/terms">Terms & Conditions</a></li>
-                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="/aboutUs"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> About Us</a></li>
+                    <li><a href="/privacy-policy"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> Privacy Policy</a></li>
+                    <li><a href="/terms"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> Terms & Conditions</a></li>
+                    <li><a href="/faq"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3>Contact</h3>
-                <p>aditya523523@gmail.com</p>
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="research_paper"><i class="fas fa-file-alt" style="margin-right: 8px;"></i> Research Paper</a></li>
+                    <li><a href="disease_info"><i class="fas fa-book" style="margin-right: 8px;"></i> Disease Info</a></li>
+                    <li><a href="contactUs"><i class="fas fa-envelope" style="margin-right: 8px;"></i> Contact Us</a></li>
+                    <li><a href="login"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Sign In</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> privacy@plantDisease_Detector.com</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +91 6390090315</p>
+                <div style="margin-top: 15px;">
+                    <a href="https://x.com/i_aditya_30" style="margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/datascientist-aditya/" style="margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Adi3042/" style="margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/i_aditya_30" style="font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 Plant Disease Detection. All rights reserved.</p>
+            <p>&copy; 2025 PlantDisease Detector. All rights reserved. | IEEE Technology Under Review</p>
         </div>
     </footer>
-
-    <script src="/static/js/main.js"></script>
+    
+    <script src="static/javascript/privacy_policy.js"></script>
 </body>
 </html>

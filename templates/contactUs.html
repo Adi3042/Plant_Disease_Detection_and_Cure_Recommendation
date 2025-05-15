@@ -26,38 +26,53 @@
     <div class="container">
         <h1>Get in Touch</h1>
         <p>Fill up the form to get in touch with us.</p>
-        
         <div class="contact-box">
             <div class="container-left">
                 <h3>Fill the Form*</h3>
-                <form id="contactForm" onsubmit="return validateForm()">
+                <form id="contactForm" action="/submit-contact" method="POST">
                     <div class="input-row">
                         <div class="input-group">
                             <label for="name">Name*</label>
-                            <input type="text" id="name" placeholder="Enter your Name" required />
+                            <input type="text" id="name" name="name" placeholder="Enter your Name" required />
+                            <div class="error-message" id="name-error"></div>
                         </div>
                         <div class="input-group">
                             <label for="phone">Phone*</label>
-                            <input type="text" id="phone" placeholder="+91 1234567890" required />
+                            <input type="text" id="phone" name="phone" placeholder="+91 1234567890" required />
+                            <div class="error-message" id="phone-error"></div>
                         </div>
                     </div>
 
                     <div class="input-row">
                         <div class="input-group">
                             <label for="email">Email*</label>
-                            <input type="email" id="email" placeholder="youremail@gmail.com" required />
+                            <input type="email" id="email" name="email" placeholder="youremail@gmail.com" required />
+                            <div class="error-message" id="email-error"></div>
                         </div>
                         <div class="input-group">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" placeholder="Inquiry" />
+                            <input type="text" id="subject" name="subject" placeholder="Inquiry" />
+                            <div class="error-message" id="subject-error"></div>
                         </div>
                     </div>
 
-                    <label for="message">Message*</label>
-                    <textarea rows="10" id="message" placeholder="Enter your Message" required></textarea>
+                    <div class="input-group">
+                        <label for="message">Message*</label>
+                        <textarea rows="10" id="message" name="message" placeholder="Enter your Message" required></textarea>
+                        <div class="error-message" id="message-error"></div> <!-- Make sure this exists -->
+                    </div>
                     
                     <button type="submit">SEND MESSAGE</button>
                 </form>
+            </div>
+
+            <div id="form-success" class="success-message" style="display: none;">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank you for contacting us!</h3>
+                <p>We'll get back to you soon.</p>
+                <button onclick="location.reload()" style="width: auto; margin-top: 20px; padding: 0 20px;">
+                    <i class="fas fa-undo"></i> Send Another Message
+                </button>
             </div>
 
             <div class="container-right">
@@ -69,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>Phone:</td>
-                        <td>+91 8529637410</td>
+                        <td>+91 6390090315</td>
                     </tr>
                     <tr>
                         <td>Address:</td>
@@ -97,55 +112,54 @@
     </div>
 
     <footer>
-      <div class="footer-content">
-          <!-- Left Column - Brand Info -->
-          <div class="footer-section about">
-              <h3>PrakritiPath</h3>
-              <p>
-                  Cultivating Crops with Nature's Wisdom<br>
-                  aditya523523@gmail.com<br>
-                  Prayagraj, Uttar Pradesh, 233001
-              </p>
-          </div>
-          
-          <!-- Middle Column - Quick Links 1 -->
-          <div class="footer-section links">
-              <h3>Quick Links</h3>
-              <ul>
-                  <li><a href="/aboutUs">About Us</a></li>
-                  <li><a href="/privacy-policy">Privacy Policy</a></li>
-                  <li><a href="/terms">Terms & Conditions</a></li>
-                  <li><a href="/faq">FAQ</a></li>
-              </ul>
-          </div>
-          
-          <!-- Right Column - Quick Links 2 -->
-          <div class="footer-section links">
-              <h3>Resources</h3>
-              <ul>
-                  <li><a href="/research_paper">Research Paper</a></li>
-                  <li><a href="/disease_info">Disease Info</a></li>
-                  <li><a href="/contactUs">Contact Us</a></li>
-                  <li><a href="/login">Sign In</a></li>
-              </ul>
-          </div>
-          
-          <!-- Social Column -->
-          <div class="footer-section social">
-              <h3>Follow Us</h3>
-              <div class="social-icons">
-                  <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                  <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                  <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                  <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              </div>
-          </div>
-      </div>
-      
-      <div class="footer-bottom">
-          <p>&copy; 2025 Plant Disease Detection System. All rights reserved.</p>
-      </div>
-  </footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PlantDisease Detector</h3>
+                <p>
+                    Cultivating Crops with Nature’s Wisdom<br>
+                    aditya523523@gmail.com<br>
+                    Prayagraj, Uttar Pradesh, 233001
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/aboutUs"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> About Us</a></li>
+                    <li><a href="/privacy-policy"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> Privacy Policy</a></li>
+                    <li><a href="/terms"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> Terms & Conditions</a></li>
+                    <li><a href="/faq"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="/research_paper"><i class="fas fa-file-alt" style="margin-right: 8px;"></i> Research Paper</a></li>
+                    <li><a href="/disease_info"><i class="fas fa-book" style="margin-right: 8px;"></i> Disease Info</a></li>
+                    <li><a href="/contactUs"><i class="fas fa-envelope" style="margin-right: 8px;"></i> Contact Us</a></li>
+                    <li><a href="/login"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Sign In</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> aditya523523@gmail.com</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px; margin-top: 15px;"></i> +91 6390090315</p>
+                <div class="social-icons" style="margin-top: 15px; ">
+                    <a href="https://x.com/i_aditya_30" target="_blank"><i class="fab fa-twitter" style="padding-right: 15px; font-size: 20px;"></i></a>
+                    <a href="https://www.linkedin.com/in/datascientist-aditya/" target="_blank"><i class="fab fa-linkedin" style="padding-right: 15px; font-size: 20px;"></i></a>
+                    <a href="https://github.com/Adi3042/" target="_blank"><i class="fab fa-github" style="padding-right: 15px; font-size: 20px;"></i></a>
+                    <a href="https://www.instagram.com/i_aditya_30" target="_blank"><i class="fab fa-instagram" style="font-size: 20px;"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Plant Disease Detection System. All rights reserved. | IEEE Technology Under Review</p>
+        </div>
+    </footer>
+
 
     <script src="/static/javascript/contactUs.js"></script>
 </body>

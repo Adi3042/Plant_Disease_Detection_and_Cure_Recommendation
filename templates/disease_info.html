@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Info | Plant Disease Detection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="/static/css/disease_info.css">
+</head>
+<body>
+  <!-- Floating leaf particles background -->
+  <div class="leaf-particles" id="leafParticles"></div>
+  
+  <!-- Loading overlay -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <i class="fas fa-leaf fa-spin"></i>
+      <p>Loading Plant Database...</p>
+    </div>
+  </div>
+
+  <header>
+    <a href="/" class="logo-link">
+      <img src="/static/assets/logo1.png" alt="Logo" class="logo">  
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/research_paper">Research Paper</a>
+      <a href="/contactUs">Contact Us</a>
+      <a href="/aboutUs">About Us</a>
+    </nav>
+    <div class="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <a href="/" class="back-btn animate__animated animate__fadeInLeft"><i class="fas fa-arrow-left"></i> Back</a>
+
+  <div class="container">
+    <div class="search-container animate__animated animate__fadeInDown">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search for plants or diseases...">
+      <button id="searchBtn"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading plant health information...</p>
+    </div>
+
+    <div class="no-results animate__animated">
+      <i class="fas fa-leaf"></i>
+      <h3>No results found</h3>
+      <p>Try a different search term</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-container animate__animated animate__fadeIn">
+      <div class="stat-card disease-stat">
+        <div class="stat-icon">
+          <i class="fas fa-bug"></i>
+        </div>
+        <div class="stat-content">
+          <h3>45+</h3>
+          <p>Plant Diseases Cataloged</p>
+        </div>
+      </div>
+      <div class="stat-card accuracy-stat">
+        <div class="stat-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-content">
+          <h3>99.37%</h3>
+          <p>Detection Accuracy</p>
+        </div>
+      </div>
+      <div class="stat-card plant-stat">
+        <div class="stat-icon">
+          <i class="fas fa-seedling"></i>
+        </div>
+        <div class="stat-content">
+          <h3>13+</h3>
+          <p>Plant Species Supported</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disease Plants Section -->
+    <h2 class="section-title diseases-title animate__animated animate__fadeInLeft"><i class="fas fa-bug"></i> Disease Affected Plants</h2>
+    <div class="accordion-container" id="diseaseContainer">
+      <!-- JS inserts disease accordions here -->
+      <div class="accordion disease-accordion animate__animated animate__fadeInLeft">
+        <i class="fas fa-apple-alt"></i> Apple Diseases
+        <span class="count-badge">12</span>
+      </div>
+      <div class="panel">
+        <div class="disease-grid">
+          <div class="disease-card animate__animated animate__fadeIn">
+            <div class="image-slider">
+              <div class="slider-images">
+                <img src="https://images.unsplash.com/photo-1568702846924-659bc34c4649" alt="Apple Scab">
+                <img src="https://images.unsplash.com/photo-1568702846924-659bc34c4649" alt="Apple Scab">
+                <img src="https://images.unsplash.com/photo-1568702846924-659bc34c4649" alt="Apple Scab">
+              </div>
+              <div class="slider-dots">
+                <span class="slider-dot active"></span>
+                <span class="slider-dot"></span>
+                <span class="slider-dot"></span>
+              </div>
+            </div>
+            <div class="disease-info">
+              <h2>Apple Scab</h2>
+              <p><strong>Causal Agent:</strong> Venturia inaequalis</p>
+              <p><strong>Symptoms:</strong> Olive-green to black spots on leaves and fruit</p>
+              <div class="remedies">
+                <h3><i class="fas fa-prescription-bottle-alt"></i> Remedies</h3>
+                <ul>
+                  <li>Apply fungicides in early spring</li>
+                  <li>Remove and destroy fallen leaves</li>
+                  <li>Plant resistant varieties</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Healthy Plants Section -->
+    <h2 class="section-title healthy-title animate__animated animate__fadeInLeft"><i class="fas fa-heart"></i> Healthy Plants</h2>
+    <div class="accordion-container" id="healthyContainer">
+      <!-- JS inserts healthy plant accordions here -->
+      <div class="accordion healthy-accordion animate__animated animate__fadeInLeft">
+        <i class="fas fa-leaf"></i> Healthy Apple Trees
+        <span class="count-badge">8</span>
+      </div>
+      <div class="panel">
+        <div class="disease-grid">
+          <div class="disease-card animate__animated animate__fadeIn">
+            <div class="image-slider">
+              <img src="https://images.unsplash.com/photo-1568702846924-659bc34c4649" alt="Healthy Apple Tree">
+            </div>
+            <div class="disease-info">
+              <h2>Healthy Apple Tree</h2>
+              <p><strong>Characteristics:</strong> Vibrant green leaves, uniform fruit size</p>
+              <div class="prevention">
+                <h3><i class="fas fa-shield-alt"></i> Prevention Tips</h3>
+                <ul>
+                  <li>Regular pruning for air circulation</li>
+                  <li>Proper spacing between trees</li>
+                  <li>Balanced fertilization</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🌱 Made with care | PlantDisease Detector - Smart Farming Initiative © 2025</p>
+  </footer>
+
+  <script src="/static/javascript/disease_info.js"></script>
+</body>
+</html>

@@ -1,13 +1,18 @@
-// Toggle between Sign In and Sign Up forms
-const signInBtn = document.getElementById("sign-in-btn");
-const signUpBtn = document.getElementById("sign-up-btn");
-const container = document.querySelector(".container");
+document.addEventListener("DOMContentLoaded", function() {
+    const container = document.querySelector(".container");
+    const signUpBtn = document.getElementById("sign-up-btn");
+    const signInBtn = document.getElementById("sign-in-btn");
 
-document.addEventListener("click", (event) => {
-    if (event.target.id === "sign-up-btn") {
-        container.classList.add("sign-up-mode");
-    } else if (event.target.id === "sign-in-btn") {
-        container.classList.remove("sign-up-mode");
+    if (signUpBtn && signInBtn && container) {
+        signUpBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            container.classList.add("sign-up-mode");
+        });
+
+        signInBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            container.classList.remove("sign-up-mode");
+        });
     }
 });
 
@@ -116,11 +121,176 @@ document.querySelector("#loginForm").addEventListener("submit", async (event) =>
     }
 });
 
-// Display alert function
+function showLoading() {
+    const loading = document.createElement("div");
+    loading.className = "loading-spinner";
+    document.body.appendChild(loading);
+}
+
+function hideLoading() {
+    const spinner = document.querySelector(".loading-spinner");
+    if (spinner) spinner.remove();
+}
+
+// Handle Google Sign-In response
+function handleGoogleSignIn(response) {
+    showLoading();
+    const token = response.credential;
+    
+    fetch('/google-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+    })
+    .then(response => response.json())
+    .then(data => {
+        hideLoading();
+        if (data.status === 'success') {
+            showAlert(data.message, 'success');
+            setTimeout(() => window.location.href = '/', 2000);
+        } else {
+            showAlert(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        hideLoading();
+        console.error('Error:', error);
+        showAlert('Login failed. Please try again.', 'error');
+    });
+}
+
+// Enhanced showAlert function
 function showAlert(message, type = "error") {
     const alertBox = document.createElement("div");
-    alertBox.className = `alert ${type}`;
+    alertBox.className = `alert alert-${type} show`;
     alertBox.innerText = message;
     document.body.appendChild(alertBox);
-    setTimeout(() => alertBox.remove(), 3000);
+    
+    // Auto-hide after 3 seconds
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+        alertBox.classList.add('hide');
+        setTimeout(() => alertBox.remove(), 500);
+    }, 3000);
 }
+
+// Update the registration form submission
+document.getElementById("registerForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    // Convert FormData to JSON
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+
+    // Client-side validation
+    const errors = validateSignupForm(data);
+    if (errors.length > 0) {
+        errors.forEach(error => showAlert(error, "error"));
+        return;
+    }
+
+    // AJAX submission
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            showAlert(result.message, "success");
+            form.reset();
+            container.classList.remove("sign-up-mode");
+        } else {
+            showAlert(result.message, "error");
+        }
+    } catch (error) {
+        console.error("Registration failed:", error);
+        showAlert("A server error occurred. Please try again.", "error");
+    }
+});
+
+// Enhanced validation function
+function validateSignupForm(data) {
+    const errors = [];
+    
+    // First name validation
+    if (!data.firstname || data.firstname.trim().length < 2) {
+        errors.push("First name must be at least 2 characters long");
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data.email || !emailRegex.test(data.email)) {
+        errors.push("Please enter a valid email address");
+    }
+
+    // Password validation
+    if (!data.password || data.password.length < 8) {
+        errors.push("Password must be at least 8 characters long");
+    } else if (!/[A-Za-z]/.test(data.password) || !/\d/.test(data.password)) {
+        errors.push("Password must contain both letters and numbers");
+    }
+
+    // Confirm password
+    if (data.password !== data.confirmpassword) {
+        errors.push("Passwords do not match");
+    }
+
+    // Mobile number validation
+    const phoneRegex = /^[0-9]{10,15}$/;
+    if (!data.mobileno || !phoneRegex.test(data.mobileno)) {
+        errors.push("Please enter a valid mobile number (10-15 digits)");
+    }
+
+    return errors;
+}
+
+// Real-time form validation
+document.querySelectorAll('#registerForm input').forEach(input => {
+    input.addEventListener('blur', function() {
+        const formData = new FormData(document.getElementById('registerForm'));
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+        
+        const errors = validateSignupForm(data);
+        const fieldErrors = errors.filter(error => 
+            error.toLowerCase().includes(input.name) || 
+            (input.name === 'confirmpassword' && error.includes('Passwords'))
+        );
+        
+        const parent = input.closest('.form-group') || input.closest('.input-field');
+        if (parent) {
+            // Remove existing error messages
+            const existingError = parent.querySelector('.error-message');
+            if (existingError) existingError.remove();
+            
+            // Add new error if exists
+            if (fieldErrors.length > 0) {
+                const errorElement = document.createElement('div');
+                errorElement.className = 'error-message';
+                errorElement.textContent = fieldErrors[0];
+                errorElement.style.color = '#dc3545';
+                errorElement.style.fontSize = '0.8rem';
+                errorElement.style.marginTop = '5px';
+                parent.appendChild(errorElement);
+                input.style.borderColor = '#dc3545';
+            } else if (input.value) {
+                input.style.borderColor = '#28a745';
+            } else {
+                input.style.borderColor = '';
+            }
+        }
+    });
+});

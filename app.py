@@ -5,8 +5,8 @@ from PIL import Image
 import tensorflow as tf
 import base64
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session, flash
-from register import handle_register
 import re
+from datetime import datetime
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from google.oauth2 import id_token
@@ -14,10 +14,12 @@ from google.auth.transport import requests
 from utils import load_tflite_model, predict
 from euriai import EuriaiClient
 from werkzeug.utils import secure_filename
+from bson.objectid import ObjectId
+import hashlib
 
 # Initialize Euriai Client
 euriai_client = EuriaiClient(
-    api_key=os.getenv("EURIAI_API_KEY"),  # Add your Euriai API key to the .env file
+    api_key=os.getenv("EURIAI_API_KEY"), 
     model="gpt-4.1-nano"
 )
 
@@ -26,37 +28,77 @@ interpreter = load_tflite_model('saved_models/Disease_Classifier.tflite')
 
 # Load environment variables
 load_dotenv()
+
+# MongoDB configuration
+mongo_uri = os.getenv("MONGO_URI")  # Fetch the MongoDB URI from the .env file
+if not mongo_uri:
+    raise ValueError("MONGO_URI is not set in the .env file")
+
+client = MongoClient(mongo_uri)  # Use the MongoDB URI from the environment variable
+db = client["PlantLeafDiseaseDB"]
+users_collection = db["users"]  # Collection for user data
+
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "your_fallback_secret")  # Secret key for Flask sessions
-MONGO_URI = "mongodb+srv://admin:root@cluster0.1wwnm.mongodb.net/PlantLeafDiseaseDB?retryWrites=true&w=majority&appName=Cluster0"  # Replace with your MongoDB URI
-
-try:
-    # Connect to MongoDB Atlas
-    client = MongoClient(MONGO_URI)
-    # Ping the database to verify the connection
-    client.admin.command('ping')
-    print("Successfully connected to MongoDB Atlas!")
-except Exception as e:
-    print(f"Failed to connect to MongoDB Atlas: {e}")
-    raise
-
-db = client['Plants']
-users_collection = db['users']
-
-
-@app.route('/test-db')
-def test_db():
-    try:
-        # Insert a test document
-        users_collection.insert_one({"test": "connection successful"})
-        return "Database connection successful!"
-    except Exception as e:
-        return f"An error occurred: {e}"
     
 # Directory to save uploaded images temporarily
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route('/submit-contact', methods=['POST'])
+def submit_contact():
+    try:
+        contact_data = {
+            "name": request.form.get('name').strip(),
+            "phone": request.form.get('phone').strip(),
+            "email": request.form.get('email').strip().lower(),
+            "subject": request.form.get('subject', 'No Subject').strip(),
+            "message": request.form.get('message').strip(),
+            "status": "unread",
+            "created_at": datetime.utcnow(),
+            "ip_address": request.remote_addr
+        }
+        
+        # Insert into MongoDB
+        result = db.contacts.insert_one(contact_data)
+        
+        if result.inserted_id:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({
+                    "status": "success",
+                    "message": "Your message has been sent successfully!"
+                })
+            flash('Your message has been sent successfully!', 'success')
+            return redirect('/contactUs')
+        else:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({
+                    "status": "error",
+                    "message": "Failed to save your message"
+                }), 400
+            flash('Failed to save your message', 'error')
+            return redirect('/contactUs')
+
+    except Exception as e:
+        print(f"Contact submission failed: {str(e)}")
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({
+                "status": "error",
+                "message": "An error occurred while submitting your form"
+            }), 500
+        flash('An error occurred while submitting your form', 'error')
+        return redirect('/contactUs')
+
+    except Exception as e:
+        print(f"Contact submission failed: {str(e)}")
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({
+                "status": "error",
+                "message": "An error occurred while submitting your form"
+            }), 500
+        flash('An error occurred while submitting your form', 'error')
+        return redirect('/contactUs')
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -155,7 +197,7 @@ def google_login():
             return jsonify({"status": "error", "message": "Token is missing"}), 400
 
         # Verify the token with Google's API
-        CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")  # Ensure this is set in your .env file
+        CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
         idinfo = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
 
         # Check if the token is valid
@@ -165,21 +207,36 @@ def google_login():
         # Extract user information
         user_email = idinfo.get('email')
         user_name = idinfo.get('name')
+        google_id = idinfo.get('sub')
 
         # Check if the user exists in the database
-        user = users_collection.find_one({"email": user_email})
+        user = users_collection.find_one({"$or": [{"email": user_email}, {"google_id": google_id}]})
+        
         if not user:
             # Register the user if they don't exist
-            users_collection.insert_one({
-                "firstname": user_name.split()[0],
-                "lastname": " ".join(user_name.split()[1:]),
+            user_data = {
+                "firstname": user_name.split()[0] if user_name else "",
+                "lastname": " ".join(user_name.split()[1:]) if user_name else "",
                 "email": user_email,
-                "google_id": idinfo.get('sub')
-            })
+                "google_id": google_id,
+                "verified": True,
+                "created_at": datetime.utcnow()
+            }
+            users_collection.insert_one(user_data)
+            message = "Account created and logged in successfully!"
+        else:
+            if user.get("google_id") != google_id:
+                return jsonify({"status": "error", "message": "This email is already registered with a different method"}), 400
+            message = "Logged in successfully!"
 
-        # Log the user in by setting the session
-        session['user'] = user_email
-        return jsonify({"status": "success", "message": "Google Sign-In successful!"})
+        # Set session
+        session['user'] = {
+            "email": user_email,
+            "name": user_name,
+            "google_id": google_id
+        }
+        
+        return jsonify({"status": "success", "message": message})
 
     except ValueError as e:
         print(f"Token verification failed: {e}")
@@ -187,34 +244,6 @@ def google_login():
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"status": "error", "message": "Internal Server Error"}), 500
-
-
-# Helper Function: Validate Form Fields
-def validate_signup_form(username, password, confirmpassword, mobileno, countrycode):
-    """Validate the signup form fields."""
-    print("-"*20, "Validating Signup Form Fields", "-"*20)
-    # Username: At least 4 characters
-    if len(username) < 4:
-        return "Username must be at least 4 characters long."
-
-    # Password: At least 8 characters with 1 symbol, 1 digit, 1 alphabet
-    if len(password) < 8 or not re.search(r'[A-Za-z]', password) or not re.search(r'\d', password) or not re.search(r'[^\w\s]', password):
-        return "Password must be at least 8 characters long, with 1 letter, 1 digit, and 1 symbol."
-
-    # Confirm Password
-    if password != confirmpassword:
-        return "Passwords do not match."
-
-    # Mobile Number Validation by Country
-    if countrycode == "+91" and len(mobileno) != 10:  # India
-        return "Mobile number for India must be 10 digits."
-    elif countrycode == "+1" and len(mobileno) != 10:  # US
-        return "Mobile number for US must be 10 digits."
-    elif countrycode == "+44" and len(mobileno) != 11:  # UK
-        return "Mobile number for UK must be 11 digits."
-
-    # All validations passed
-    return None
 
 @app.route('/contactUs')
 def contact_us():
@@ -245,10 +274,10 @@ def terms():
     """Render the Terms and Conditions page."""
     return render_template('terms.html')
 
-@app.route('/diseaseInfo')
+@app.route('/disease_info')
 def disease_info():
     """Render the Disease Info page."""
-    return render_template('diseaseInfo.html')
+    return render_template('disease_info.html')
 
 @app.route('/login')
 def login():
@@ -290,37 +319,73 @@ def login_val():
 def register():
     """Handle user registration."""
     try:
-        if request.content_type != 'application/json':
+        if not request.is_json:
             return jsonify({"status": "error", "message": "Content-Type must be application/json"}), 415
 
-        data = request.json
-        firstname = data.get("firstname")
-        lastname = data.get("lastname")
-        email = data.get("email")
-        password = data.get("password")  # Hash this password before storing
-        mobileno = data.get("mobileno")
+        data = request.get_json()
+        firstname = data.get("firstname", "").strip()
+        lastname = data.get("lastname", "").strip()
+        email = data.get("email", "").strip().lower()
+        password = data.get("password", "").strip()
+        confirmpassword = data.get("confirmpassword", "").strip()
+        mobileno = data.get("mobileno", "").strip()
 
         # Validate the input fields
-        if not firstname or not email or not password or not mobileno:
+        if not all([firstname, email, password, confirmpassword, mobileno]):
             return jsonify({"status": "error", "message": "All fields are required."}), 400
+
+        # Name validation
+        if len(firstname) < 2:
+            return jsonify({"status": "error", "message": "First name must be at least 2 characters long."}), 400
+
+        # Email validation
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            return jsonify({"status": "error", "message": "Invalid email format."}), 400
+
+        # Password validation
+        if len(password) < 8:
+            return jsonify({"status": "error", "message": "Password must be at least 8 characters long."}), 400
+        if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
+            return jsonify({"status": "error", "message": "Password must contain both letters and numbers."}), 400
+
+        # Confirm password
+        if password != confirmpassword:
+            return jsonify({"status": "error", "message": "Passwords do not match."}), 400
+
+        # Mobile number validation
+        if not re.match(r"^[0-9]{10,15}$", mobileno):
+            return jsonify({"status": "error", "message": "Invalid mobile number (10-15 digits required)."}), 400
 
         # Check if the user already exists
         if users_collection.find_one({"email": email}):
             return jsonify({"status": "error", "message": "Email already registered."}), 400
+
+        # Hash password (use bcrypt in production)
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
         # Insert the new user into the database
         users_collection.insert_one({
             "firstname": firstname,
             "lastname": lastname,
             "email": email,
-            "password": password,  # Use a hashed password in production
-            "mobileno": mobileno
+            "password": hashed_password,
+            "mobileno": mobileno,
+            "verified": False,
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
         })
 
-        return jsonify({"status": "success", "message": "Registration successful!"})
+        return jsonify({
+            "status": "success", 
+            "message": "Registration successful! You can now login."
+        })
+
     except Exception as e:
         print(f"Error during registration: {e}")
-        return jsonify({"status": "error", "message": "Internal Server Error"}), 500
+        return jsonify({
+            "status": "error", 
+            "message": "Internal Server Error"
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

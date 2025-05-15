@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - Plant Disease Detection</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/faq.css">
+    <title>✨ FAQ - PlantDisease Detector ✨</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/static/css/faq.css">
 </head>
 <body>
-    <header>
+    <!-- Floating particles background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <i class="fas fa-leaf fa-spin" style="margin-right: 15px;"></i>
+            Loading PlantDisease Detector FAQ...
+        </div>
+    </div>
+
+    <header id="mainHeader">
         <a href="/" class="logo-link">
-            <img src="/static/assets/logo1.png" alt="Logo" class="logo">
+            <img src="/static/assets/logo1.png" alt="PlantDisease Detector Logo" class="logo">
         </a>
         <nav>
             <a href="/">Home</a>
@@ -27,15 +38,44 @@
     <main class="faq-container">
         <h1>Frequently Asked Questions</h1>
         
+        <!-- Stats Banner -->
+        <div class="stats-banner animate__animated animate__fadeIn">
+            <h3>Our Cutting-Edge Technology</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">99.37%</div>
+                    <div class="stat-label">Detection Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">50K+</div>
+                    <div class="stat-label">Plant Images Analyzed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">IEEE</div>
+                    <div class="stat-label">Research Paper in Review</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">PlantVillage</div>
+                    <div class="stat-label">Dataset Used</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Search -->
+        <div class="faq-search">
+            <input type="text" id="faqSearch" placeholder="Search FAQs...">
+            <i class="fas fa-search"></i>
+        </div>
+        
         <div class="faq-category">
             <h2>General Questions</h2>
             <div class="faq-item">
                 <button class="faq-question">
-                    What is Plant Disease Detection?
+                    What is PlantDisease Detector?
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Plant Disease Detection is an AI-powered platform that helps identify plant diseases from images of leaves or other plant parts. Our system analyzes the images and provides information about potential diseases and treatment options.</p>
+                    <p>PlantDisease Detector is an advanced AI-powered platform that revolutionizes plant disease detection. Using cutting-edge deep learning algorithms trained on the PlantVillage dataset, our system can identify plant diseases from images with 99.37% accuracy. This technology is currently in the review phase for publication in an IEEE research paper, demonstrating its scientific validity and reliability.</p>
                 </div>
             </div>
 
@@ -45,7 +85,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Our system has an accuracy rate of approximately 95% for common plant diseases. Accuracy may vary depending on image quality and the specific disease.</p>
+                    <p>Our system achieves an industry-leading accuracy rate of 99.37% for common plant diseases, as validated by rigorous testing. This exceptional performance is due to our proprietary algorithms and the comprehensive PlantVillage dataset. The technology is currently under peer review for publication in an IEEE journal, further validating its scientific robustness.</p>
                 </div>
             </div>
         </div>
@@ -58,7 +98,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>No, you can use the basic detection service without an account. However, creating an account allows you to save your history and access additional features.</p>
+                    <p>No account is needed for basic disease detection. However, registered users enjoy additional benefits including analysis history, personalized recommendations, and priority support. Our premium tier offers unlimited analyses and advanced diagnostic features.</p>
                 </div>
             </div>
 
@@ -68,7 +108,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Free accounts can analyze up to 10 images per day. Premium subscribers have unlimited access.</p>
+                    <p>Free users can analyze up to 10 images daily. Our premium subscription offers unlimited analyses, batch processing, and API access. Educational and research institutions may qualify for special access to our IEEE-reviewed technology.</p>
                 </div>
             </div>
         </div>
@@ -77,11 +117,11 @@
             <h2>Technical Questions</h2>
             <div class="faq-item">
                 <button class="faq-question">
-                    What image format do you accept?
+                    What image formats do you accept?
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>We accept JPG, PNG, and WEBP formats. For best results, use high-quality images with good lighting and focus on the affected plant parts.</p>
+                    <p>We accept JPG, PNG, and WEBP formats. For optimal results with our 99.37% accurate system, use high-resolution images (minimum 800x600px) with good lighting and clear focus on the affected plant parts. Our IEEE-reviewed algorithms work best with properly captured images.</p>
                 </div>
             </div>
 
@@ -91,41 +131,61 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq-answer">
-                    <p>Analysis typically takes 5-10 seconds per image, depending on server load and image complexity.</p>
+                    <p>Thanks to our optimized algorithms (currently in IEEE review), analysis typically completes in 3-5 seconds. Complex cases or batch processing may take slightly longer. Premium users enjoy prioritized processing for even faster results.</p>
                 </div>
             </div>
         </div>
 
         <div class="contact-support">
             <h2>Still have questions?</h2>
-            <p>Contact our support team at <a href="mailto:support@plantdisease.example.com">support@plantdisease.example.com</a></p>
+            <p>Our team of plant pathologists and AI experts is ready to help you.</p>
+            <a href="mailto:aditya523523@gmail.com">
+                <i class="fas fa-envelope" style="margin-right: 8px;"></i>
+                aditya523523@gmail.com
+            </a>
         </div>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>PrakritiPath</h3>
-                <p>Helping farmers and gardeners identify plant diseases quickly and accurately.</p>
+                <h3>PlantDisease Detector</h3>
+                <p>Revolutionizing plant health monitoring with our 99.37% accurate, IEEE-reviewed AI technology.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/terms">Terms & Conditions</a></li>
-                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="/aboutUs"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> About Us</a></li>
+                    <li><a href="/privacy-policy"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> Privacy Policy</a></li>
+                    <li><a href="/terms"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> Terms & Conditions</a></li>
+                    <li><a href="/faq"><i class="fas fa-chevron-right" style="margin-right: 8px;"></i> FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3>Contact</h3>
-                <p>aditya523523@gmail.com</p>
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="research_paper"><i class="fas fa-file-alt" style="margin-right: 8px;"></i> Research Paper</a></li>
+                    <li><a href="disease_info"><i class="fas fa-book" style="margin-right: 8px;"></i> Disease Info</a></li>
+                    <li><a href="contactUs"><i class="fas fa-envelope" style="margin-right: 8px;"></i> Contact Us</a></li>
+                    <li><a href="login"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Sign In</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> privacy@plantDisease_Detector.com</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +91 6390090315</p>
+                <div style="margin-top: 15px;">
+                    <a href="https://x.com/i_aditya_30" style="margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/datascientist-aditya/" style="margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Adi3042/" style="margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/i_aditya_30" style="font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 Plant Disease Detection. All rights reserved.</p>
+            <p>&copy; 2025 PlantDisease Detector. All rights reserved. | IEEE Technology Under Review</p>
         </div>
     </footer>
-
-    <script src="/static/javascript/faq.js"></script>
+    <script src = "static/javascript/faq.js"></script>
 </body>
 </html>

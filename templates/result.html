@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Result</title>
     <link rel="stylesheet" href="/static/css/result.css">
+    <meta property="og:title" content="AI Plant Disease Prediction Result">
+    <meta property="og:description" content="See the AI-detected disease and recommended cures for your crop.">
+    <meta property="og:image" content="{{ img_path }}">
+    <meta property="og:url" content="https://yourdomain.com/result">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -13,14 +17,10 @@
             <img src="/static/assets/logo1.png" alt="Logo" class="logo">
         </a>
         <nav>
-            <a href="/research_paper">Research Paper</a>
+            <a href="/">Home</a>
+            <a href="/disease_info">Disease Info</a>
             <a href="/contactUs">Contact Us</a>
             <a href="/aboutUs">About Us</a>
-            {% if session['user'] %}
-                <a href="/logout">Logout</a>
-            {% else %}
-                <a href="/login">Login</a>
-            {% endif %}
         </nav>
         <div class="hamburger">
             <i class="fas fa-bars"></i>
@@ -34,7 +34,11 @@
             <h2>Prediction Result</h2>
             <img src="{{ img_path }}" alt="Uploaded Image" class="result-image">
             <p><strong>Predicted Disease:</strong> {{ class_name }}</p>
-            <p><strong>Model Confidence:</strong> {{ confidence }}%</p>
+            <p><strong>Model Confidence:</strong></p>
+            <div class="confidence-bar">
+                <div class="bar-fill" style="width: {{ confidence | safe }}%;"></div>
+            </div>
+            <p>{{ confidence }}%</p>
             <a href="/" class="upload-btn">Upload Another Image</a>
         </div>
 
@@ -42,14 +46,35 @@
         <div class="result-right">
             <h2>🌿 Cure and Remedies</h2>
             <div id="remedy-markdown" class="remedy-box"></div>
+            <div class="suggestions">
+                <h3>🌾 Suggested Actions</h3>
+                <ul>
+                    <li>Isolate the infected plant.</li>
+                    <li>Apply the recommended organic treatment.</li>
+                    <li>Monitor plant health daily for signs of recovery.</li>
+                </ul>
+            </div>
         </div>
     </div>
-        <!-- Render markdown using marked.js -->
+
+    <!-- Render markdown using marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         const rawMarkdown = `{{ remedies | safe }}`;
         const html = marked.parse(rawMarkdown);
         document.getElementById('remedy-markdown').innerHTML = html;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader if it's still showing (in case page loaded completely)
+            const loader = document.getElementById('loader-container');
+            if (loader) {
+                loader.style.display = 'none';
+            }
+        });
     </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 PlantDisease Detector | Empowering Smart Farming with AI</p>
+    </footer>
 </body>
 </html>

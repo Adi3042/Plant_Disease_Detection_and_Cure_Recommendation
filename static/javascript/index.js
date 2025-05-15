@@ -27,17 +27,6 @@ if (captureBtn) {
     });
 }
 
-// Unlock drag-and-drop section after login
-document.addEventListener('DOMContentLoaded', () => {
-    const uploadContainer = document.getElementById('upload-container');
-    const lockIcon = document.querySelector('.lock-icon');
-
-    if (uploadContainer && !uploadContainer.classList.contains('locked')) {
-        if (lockIcon) lockIcon.style.display = 'none';
-        uploadContainer.style.background = 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
-    }
-});
-
 // Hover effect for upload title
 const uploadTitle = document.querySelector('.upload-title');
 if (uploadTitle) {
@@ -137,3 +126,34 @@ uploadContainer.addEventListener('drop', (event) => {
         fileLabel.textContent = 'File selected: ' + event.dataTransfer.files[0].name;
     }
 });
+
+// File selection feedback
+fileInput.addEventListener('change', function() {
+    if (this.files.length > 0) {
+        fileLabel.classList.add('selected');
+        fileLabel.innerHTML = `<i class="fas fa-check"></i> ${this.files[0].name}`;
+    } else {
+        fileLabel.classList.remove('selected');
+        fileLabel.textContent = 'Browse Files';
+    }
+});
+
+// Form submission with loader
+if (uploadForm) {
+    uploadForm.addEventListener('submit', function(e) {
+        // Only show loader if a file is selected
+        if (fileInput.files.length > 0) {
+            const loader = document.getElementById('loader-container');
+            loader.style.display = 'flex';
+            
+            // Optional: Add a small delay to ensure loader is visible
+            setTimeout(() => {
+                // The form will continue with its normal submission
+                // The loader will disappear when the new page loads
+            }, 100);
+        } else {
+            e.preventDefault(); // Prevent form submission if no file selected
+            alert('Please select an image first');
+        }
+    });
+}

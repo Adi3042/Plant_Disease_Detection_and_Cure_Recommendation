@@ -1,10 +1,10 @@
 /* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-    color: #333;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e6f5ec, #d0f0c0); /* light leafy green tones */
+  color: #2c3e50; /* deep greenish-gray for readability */
 }
 
 nav {
@@ -13,75 +13,88 @@ nav {
 }
 
 nav a {
-  color: var(--navbar-color);
-  font-size: 18px;
-  text-decoration: none;
-  padding: 5px 9px;
-  font-weight: bold;
-  border: 2px solid transparent;
-  transition: color 0.3s, border 0.3s;
+    color: var(--navbar-color);
+    font-size: 18px;
+    text-decoration: none;
+    padding: 5px 9px;
+    font-weight: bold;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--navbar-hover-color, #007BFF); /* Hover text color */
-    border-bottom: 2px solid #007BFF; /* Underline effect on hover */
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+}
+
+nav a.active {
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
 }
 
 .hamburger {
-    display: none; /* Hidden by default */
+    display: none;
     font-size: 25px;
     cursor: pointer;
     color: #fff;
 }
 
 .hamburger i {
-  font-size: 24px;
+    font-size: 24px;
 }
 
 /* Responsive Design for Mobile */
 @media (max-width: 768px) {
-  nav {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 60px; /* Adjust based on header height */
-    right: 0;
-    width: 100%;
-  }
+    nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-  nav a {
-    padding: 15px;
-    text-align: center;
-    width: 100%;
-    border-bottom: 1px solid #ddd;
-  }
+    nav a {
+        padding: 15px;
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+        color: var(--primary);
+    }
 
-  nav a:last-child {
-    border-bottom: none;
-  }
+    nav a:last-child {
+        border-bottom: none;
+    }
 
-  .hamburger {
-    display: block;
-  }
+    .hamburger {
+        display: block;
+    }
 
-  nav.active {
-    display: flex;
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background for dropdown */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+    nav.active {
+        display: flex;
+    }
+}
+
+/* Main content spacing to account for fixed header */
+main {
+    padding-top: 80px;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 100%;
     padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: var(--navbar-background);
     position: fixed;
     top: 0;
-    width: 100%;
+    left: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
 }
 
 header .logo {
@@ -89,7 +102,7 @@ header .logo {
 }
 
 header nav a {
-    color: #fff;
+    color: #100202;
     text-decoration: none;
     margin: 0 10px;
     font-weight: bold;
@@ -98,6 +111,15 @@ header nav a {
 
 header nav a:hover {
     color: #4CAF50;
+}
+
+header.hide {
+    transform: translateY(-100%);
+}
+
+header.scrolled {
+    padding: 10px 5%;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Result Container */
@@ -203,4 +225,61 @@ header nav a:hover {
 
 .remedy-box::-webkit-scrollbar-thumb:hover {
     background: #45a049;
+}
+
+/* Confidence Bar */
+.confidence-bar {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 20px;
+    margin: 10px 0;
+}
+.bar-fill {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Checkmark Animation */
+.checkmark-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.checkmark {
+    font-size: 48px;
+    color: #4CAF50;
+    animation: pop 0.5s ease;
+}
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Suggestions Box */
+.suggestions {
+    margin-top: 20px;
+    background: #eaffea;
+    padding: 15px;
+    border-left: 5px solid #4CAF50;
+    border-radius: 8px;
+}
+.suggestions h3 {
+    color: #2e7d32;
+}
+.suggestions ul {
+    padding-left: 20px;
+}
+
+/* Footer */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  padding: 15px 10px;
+  background-color: #0a1f16; /* dark organic green */
+  color: #aeeec7; /* soft mint green for text */
+  font-size: 0.9em;
+  letter-spacing: 0.3px;
+  border-top: 2px solid #4CAF50;
 }

@@ -161,59 +161,55 @@ textarea {
     }
 }
 
-    /* Style for the popup flash message */
-    .alert {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 15px 30px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 9999;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease, top 0.5s ease;
-  }
+/* Alert animations */
+.alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease, top 0.5s ease;
+}
 
-  /* Style for success messages */
-  .alert-success {
-      background-color: #28a745;
-      color: white;
-  }
+.alert-success {
+    background-color: #28a745;
+    color: white;
+}
 
-  /* Style for error messages */
-  .alert-error {
-      background-color: #dc3545;
-      color: white;
-  }
+.alert-error {
+    background-color: #dc3545;
+    color: white;
+}
 
-  /* Style for warning messages */
-  .alert-warning {
-      background-color: #ffc107;
-      color: white;
-  }
+/* Style for warning messages */
+.alert-warning {
+    background-color: #ffc107;
+    color: white;
+}
 
-  /* Style for info messages */
-  .alert-info {
-      background-color: #17a2b8;
-      color: white;
-  }
+/* Style for info messages */
+.alert-info {
+    background-color: #17a2b8;
+    color: white;
+}
 
-  /* Show the alert with animation */
-  .alert.show {
-      display: block;
-      opacity: 1;
-      top: 40px;
-  }
+.alert.show {
+    display: block;
+    opacity: 1;
+    top: 40px;
+}
 
-  /* Fade out effect after 3 seconds */
-  .alert.hide {
-      opacity: 0;
-      top: 20px;
-  }
+.alert.hide {
+    opacity: 0;
+    top: 20px;
+}
 
 form {
   display: flex;
@@ -697,4 +693,82 @@ form.sign-in-form {
   .form-group textarea {
     height: auto;
   }
+  .g_id_signin {
+    width: 100%;
+  }
+}
+
+.google-signin-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+/* Google Sign-In button styling */
+.g_id_signin {
+    width: 100%;
+    max-width: 300px;
+    height: 50px;
+    border-radius: 25px !important;
+    transition: all 0.3s ease;
+}
+
+.g_id_signin:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Mobile input validation */
+input:invalid {
+    border-color: #dc3545;
+}
+
+input:valid {
+    border-color: #28a745;
+}
+
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.loading-spinner::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Add to your existing input styles */
+.input-field input:invalid,
+.form-group input:invalid {
+    border-color: #dc3545 !important;
+}
+
+.input-field input:valid,
+.form-group input:valid {
+    border-color: #28a745 !important;
 }

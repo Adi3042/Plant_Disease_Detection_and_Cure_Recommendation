@@ -9,7 +9,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     color: #fff;
-    text-align: center;
+    /* text-align: center; */
     overflow: auto;
     background-color: #0a1a16; /* Add dark green background to body */
     position: relative; /* Needed for proper z-index stacking */
@@ -183,111 +183,72 @@ body::before {
 }
 
 footer {
-    background-color: #142830 !important;
-    color: #c2d6d6;
-    padding: 0px 0 0 0; /* Top padding only */
-    border-top: 1px solid #1e3a3a;
-    box-shadow: 0 -4px 15px rgba(0, 20, 15, 0.5);
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    margin-top: 120px; /* Add space above footer */
+    background: rgba(10, 26, 22, 0.9);
+    color: white;
+    padding: 20px 0 20px 0; /* reduced top & bottom padding */
+    margin-top: 0px; /* slightly reduced top margin */
+    backdrop-filter: blur(5px);
+    width: 100%; /* ensures full screen width */
+    box-sizing: border-box;
 }
 
 .footer-content {
-    background-color: #142830; /* Same as footer */
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
-}
-
-.footer-section {
-flex: 1;
-min-width: 220px;
-margin-bottom: 0px;
-padding: 0 28px;
 }
 
 .footer-section h3 {
-font-size: 1.2em;
-margin-bottom: 10px;
-color: #8ab4b4; /* Muted teal */
-letter-spacing: 0.5px;
-text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
 }
 
-.footer-section p, 
-.footer-section ul li {
-color: #9cbeb8; /* Soft green-blue */
-line-height: 1.6;
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background: var(--accent);
+}
+
+.footer-section p, .footer-section li {
+    line-height: 1.8;
+    opacity: 0.9;
 }
 
 .footer-section ul {
-list-style: none;
-padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
-.footer-section ul li {
-margin-bottom: 4px;
-transition: all 0.3s ease;
-padding-left: 5px;
-border-left: 2px solid transparent;
+.footer-section li {
+    margin-bottom: 8px;
 }
 
-.footer-section ul li a {
-color: #8db3b3; /* Medium teal */
-text-decoration: none;
-font-size: 16px;
-transition: all 0.3s ease;
-display: block;
-}
-
-.footer-section ul li:hover {
-border-left: 2px solid #3a7a7a;
-padding-left: 10px;
-}
-
-.footer-section ul li a:hover {
-color: #d1e9e9;
-}
-
-.social-icons {
-    display: flex;
-    gap: 28px;
-    text-align: center;
-}
-
-.social-icons a {
-    display: inline-block;
-    margin-right: 15px;
-    font-size: 22px;
-    color: #8db3b3;
+.footer-section a {
+    color: white;
+    text-decoration: none;
     transition: all 0.3s ease;
-    text-align: center;
+    display: inline-block;
 }
 
-.social-icons a:hover {
-    color: #65efef;
-    transform: translateY(-3px) scale(1.1);
+.footer-section a:hover {
+    color: var(--accent);
+    transform: translateX(5px);
 }
 
 .footer-bottom {
-    background: #07120f !important;
     text-align: center;
-    padding: 1px 2px;
-    font-size: 13px;
-    color: #79f8f8;
     margin-top: 0px;
-}
-
-@media (max-width: 768px) {
-.footer-section {
-    min-width: 100%;
-    margin-bottom: 25px;
-}
+    padding-top: 0px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Loader */
@@ -522,7 +483,7 @@ nav a:hover {
 
   nav a {
     padding: 15px;
-    text-align: center;
+    /* text-align: center; */
     width: 100%;
     border-bottom: 1px solid #ddd;
   }
@@ -614,7 +575,7 @@ nav a:hover {
     width: 90%; /* Adjust width for responsiveness */
     max-width: 800px; /* Limit the maximum width */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-    text-align: center;
+    /* text-align: center; */
 }
 
 .result-container h2 {
@@ -650,10 +611,10 @@ nav a:hover {
         font-size: 1em; /* Adjust font size for smaller screens */
     }
 
-    .social-icons {
+    /* .social-icons {
     justify-content: center;
     text-align: center;
-    }
+    } */
 }
 
 

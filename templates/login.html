@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/static/javascript/login.js"></script>
 </head>
 
 <body>
@@ -45,11 +46,24 @@
                     <input type="submit" value="Login" class="btn solid" />
                     <p class="social-text">Or Sign in with social platforms</p>
                     <div class="social-media">
-                        <!-- Google Sign-In Button -->
-                        <div id="g_id_onload" data-client_id="{{ google_client_id }}" data-auto_prompt="false"></div>
-                        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_black"
-                            data-text="continue_with" data-size="large" data-logo_alignment="left"></div>
+                    <div class="google-signin-container">
+                        <div id="g_id_onload"
+                            data-client_id="{{ google_client_id }}"
+                            data-callback="handleGoogleSignIn"
+                            data-auto_prompt="false">
+                        </div>
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="filled_blue"
+                            data-text="continue_with"
+                            data-size="large"
+                            data-logo_alignment="left"
+                            data-width="300">
+                        </div>
                     </div>
+                </div>
+                    <p class="social-text">Don't have an account? <a href="#">Sign Up</a></p>
                 </form>
 
                 <!-- Sign Up Form -->
@@ -84,11 +98,24 @@
                     <input type="submit" value="Register" class="btn solid" />
                     <p class="social-text">Or Register with social platforms</p>
                     <div class="social-media">
-                        <!-- Google Register Button -->
-                        <div id="g_id_onload" data-client_id="{{ google_client_id }}" data-auto_prompt="false"></div>
-                        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_black"
-                            data-text="continue_with" data-size="large" data-logo_alignment="left"></div>
+                    <div class="google-signin-container">
+                        <div id="g_id_onload"
+                            data-client_id="{{ google_client_id }}"
+                            data-callback="handleGoogleSignIn"
+                            data-auto_prompt="false">
+                        </div>
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="filled_blue"
+                            data-text="continue_with"
+                            data-size="large"
+                            data-logo_alignment="left"
+                            data-width="300">
+                        </div>
                     </div>
+                </div>
+                    <p class="social-text">By signing up, you agree to our <a href="/terms">Terms of Service</a> and <a href="privacy-policy">Privacy Policy</a>.</p>
                 </form>
             </div>
         </div>
@@ -125,8 +152,6 @@
             container.classList.remove("sign-up-mode");
         });
     </script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="/static/javascript/login.js"></script>
 </body>
 
 </html>
