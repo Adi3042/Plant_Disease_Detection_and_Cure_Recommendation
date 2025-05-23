@@ -1,7 +1,3 @@
-Here’s a professional and attractive `README.md` template for your **Plant Leaf Disease Detection and Cure Recommendations** project. It's styled with clear sections, markdown formatting, and useful instructions to engage visitors and help them set up the project easily:
-
----
-
 # 🌿 Plant Leaf Disease Detection and Cure Recommendations
 
 A Deep Learning-based web application that identifies plant leaf diseases from images and suggests cures including prevention tips, Ayurvedic remedies, and recommended medicines.
