@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In & Sign Up</title>
     <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <link rel="icon" href="/static/assets/login_logo.jpeg" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="/static/javascript/login.js"></script>
 </head>
@@ -16,11 +16,11 @@
 <body>
     <header>
         <a href="/" class="logo-link">
-            <img src="/static/assets/logo1.png" alt="Logo" class="logo" />
+            <img src="/static/assets/logo.png" alt="Logo" class="logo" />
         </a>
         <nav>
             <a href="/">Home</a>
-            <a href="/research_paper">Research Paper</a>
+            <a href="/disease_info">Disease Info</a>
             <a href="/contactUs">Contact Us</a>
             <a href="/aboutUs">About Us</a>
         </nav>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" placeholder="Password" required />
+                        <input type="password" id="loginPassword" name="password" placeholder="Password" required />
                     </div>
                     <input type="submit" value="Login" class="btn solid" />
                     <p class="social-text">Or Sign in with social platforms</p>
@@ -70,6 +70,7 @@
                 <form id="registerForm" class="sign-up-form" method="POST">
                     <h2 class="title">Sign Up</h2>
                     <div class="form-grid">
+                        <!-- First Row: First Name + Last Name -->
                         <div class="form-group">
                             <i class="fas fa-user"></i>
                             <input type="text" id="firstname" name="firstname" placeholder="First Name" required />
@@ -78,43 +79,47 @@
                             <i class="fas fa-user"></i>
                             <input type="text" id="lastname" name="lastname" placeholder="Last Name" />
                         </div>
+                        
+                        <!-- Second Row: Email + Mobile -->
                         <div class="form-group">
                             <i class="fas fa-envelope"></i>
                             <input type="email" id="email" name="email" placeholder="Email" required />
                         </div>
                         <div class="form-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="mobileno" name="mobileno" placeholder="Mobile No" required />
+                        </div>
+                        
+                        <!-- Third Row: Password + Confirm Password -->
+                        <div class="form-group">
                             <i class="fas fa-lock"></i>
-                            <input type="password" id="password" name="password" placeholder="Password" required />
+                            <input type="password" id="registerPassword" name="password" placeholder="Password" required />
                         </div>
                         <div class="form-group">
                             <i class="fas fa-lock"></i>
                             <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required />
                         </div>
-                        <div class="form-group">
-                            <i class="fas fa-globe"></i>
-                            <input type="tel" id="mobileno" name="mobileno" placeholder="Mobile No" required />
-                        </div>
                     </div>
                     <input type="submit" value="Register" class="btn solid" />
                     <p class="social-text">Or Register with social platforms</p>
                     <div class="social-media">
-                    <div class="google-signin-container">
-                        <div id="g_id_onload"
-                            data-client_id="{{ google_client_id }}"
-                            data-callback="handleGoogleSignIn"
-                            data-auto_prompt="false">
-                        </div>
-                        <div class="g_id_signin"
-                            data-type="standard"
-                            data-shape="pill"
-                            data-theme="filled_blue"
-                            data-text="continue_with"
-                            data-size="large"
-                            data-logo_alignment="left"
-                            data-width="300">
+                        <div class="google-signin-container">
+                            <div id="g_id_onload"
+                                data-client_id="{{ google_client_id }}"
+                                data-callback="handleGoogleSignIn"
+                                data-auto_prompt="false">
+                            </div>
+                            <div class="g_id_signin"
+                                data-type="standard"
+                                data-shape="pill"
+                                data-theme="filled_blue"
+                                data-text="continue_with"
+                                data-size="large"
+                                data-logo_alignment="left"
+                                data-width="300">
+                            </div>
                         </div>
                     </div>
-                </div>
                     <p class="social-text">By signing up, you agree to our <a href="/terms">Terms of Service</a> and <a href="privacy-policy">Privacy Policy</a>.</p>
                 </form>
             </div>
@@ -153,5 +158,4 @@
         });
     </script>
 </body>
-
 </html>

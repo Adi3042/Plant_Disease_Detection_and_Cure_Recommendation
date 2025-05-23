@@ -48,12 +48,15 @@ header {
 
 
 .logo-link {
-  display: flex;
-  align-items: center;
+    height: 35px; /* Match this to your logo height */
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-  height: 35px;
+    height: 110px; /* Increased from 35px */
+    width: auto; /* Maintain aspect ratio */
+    transition: all 0.3s ease;
 }
 
 nav {
@@ -538,6 +541,22 @@ footer {
     margin: 0 auto;
 }
 
+.disease-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.disease-tag {
+  background: rgba(231, 76, 60, 0.1);
+  color: var(--disease-color);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -580,6 +599,9 @@ footer {
     .disease-card:hover {
         transform: none;
         box-shadow: var(--card-shadow);
+    }
+    .healthy-plants-container {
+    grid-template-columns: 1fr;
     }
 }
 
@@ -720,4 +742,97 @@ footer {
 .stat-content p {
   font-size: 0.9rem;
   color: var(--text-light);
+}
+
+/* Add to disease_info.css */
+
+/* Healthy Plants Gallery */
+.healthy-plants-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+.healthy-plant-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 3px solid var(--healthy-color);
+}
+
+.healthy-plant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(46, 204, 113, 0.3);
+}
+
+.healthy-plant-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-bottom: 2px solid var(--healthy-color);
+}
+
+.healthy-plant-info {
+  padding: 15px;
+  position: relative;
+}
+
+.healthy-plant-name {
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.healthy-plant-description {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.healthy-plant-badge {
+  position: absolute;
+  top: -15px;
+  right: 15px;
+  background: var(--healthy-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.healthy-plant-details {
+  background: rgba(46, 204, 113, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.healthy-plant-details h4 {
+  color: var(--healthy-color);
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.healthy-plant-details ul {
+  padding-left: 20px;
+  font-size: 0.85rem;
+}
+
+.healthy-plant-details li {
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.healthy-plant-details li:before {
+  content: "✓";
+  color: var(--healthy-color);
+  position: absolute;
+  left: -15px;
 }

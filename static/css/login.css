@@ -13,12 +13,15 @@ header {
 }
 
 .logo-link {
-  display: flex;
-  align-items: center;
+    height: 35px; /* Match this to your logo height */
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-  height: 35px;
+    height: 110px; /* Increased from 35px */
+    width: auto; /* Maintain aspect ratio */
+    transition: all 0.3s ease;
 }
 
 nav {
@@ -96,20 +99,23 @@ input {
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   position: relative;
+  margin: 0;
+  width: 100%;
 }
 
 .form-group i {
     position: absolute;
-    top: 10px;
+    top: 50%;
     left: 10px;
+    transform: translateY(-50%);
     color: #acacac;
     font-size: 1.2rem;
 }
@@ -158,6 +164,9 @@ textarea {
 
     nav.active {
         display: flex;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -290,6 +299,10 @@ form.sign-in-form {
   font-weight: 600;
   font-size: 1.1rem;
   color: #333;
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border-radius: 25px;
+
 }
 
 .input-field textarea {

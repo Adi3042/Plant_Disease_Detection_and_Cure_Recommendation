@@ -13,12 +13,15 @@ header {
 }
 
 .logo-link {
+    height: 35px; /* Match this to your logo height */
     display: flex;
     align-items: center;
 }
 
 .logo {
-    height: 35px;
+    height: 110px; /* Increased from 35px */
+    width: auto; /* Maintain aspect ratio */
+    transition: all 0.3s ease;
 }
 
 nav {

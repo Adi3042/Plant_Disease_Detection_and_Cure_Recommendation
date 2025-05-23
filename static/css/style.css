@@ -413,7 +413,7 @@ footer {
 
 header {
     width: 100%;
-    padding: 10px 20px;
+    padding: 5px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -431,12 +431,15 @@ header nav a:hover {
 }
 
 .logo-link {
+    height: 35px;
     display: flex;
     align-items: center;
 }
 
 .logo {
-    height: 35px;
+    height: 120px; /* Increased from 35px */
+    width: auto; /* Maintain aspect ratio */
+    transition: all 0.3s ease;
 }
 
 nav {
@@ -610,11 +613,6 @@ nav a:hover {
     .result-container p {
         font-size: 1em; /* Adjust font size for smaller screens */
     }
-
-    /* .social-icons {
-    justify-content: center;
-    text-align: center;
-    } */
 }
 
 

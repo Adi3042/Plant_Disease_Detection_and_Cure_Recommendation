@@ -13,6 +13,7 @@ document.getElementById('searchInput').addEventListener('input', function () {
 });
 
 // Enhanced disease data with multiple images per disease
+// Enhanced disease data with multiple images per disease
 const diseaseDatabase = {
   "Apple": [
     {
@@ -56,9 +57,9 @@ const diseaseDatabase = {
     {
       name: "Cherry Powdery Mildew",
       images: [
-        "cherry/powdery_mildew_1.jpg",
-        "cherry/powdery_mildew_2.jpg",
-        "cherry/powdery_mildew_3.jpg"
+        "cherry/powdery_mildew_1.JPG",
+        "cherry/powdery_mildew_2.JPG",
+        "cherry/powdery_mildew_3.JPG"
       ],
       description: "White powdery growth on leaves and shoots, causing distortion and reduced fruit quality.",
       cure: "Improve air circulation and apply fungicides during susceptible periods.",
@@ -70,9 +71,9 @@ const diseaseDatabase = {
     {
       name: "Corn Cercospora Leaf Spot",
       images: [
-        "corn/cercospora_1.jpg",
-        "corn/cercospora_2.jpg",
-        "corn/cercospora_3.jpg"
+        "corn/cercospora_1.JPG",
+        "corn/cercospora_2.JPG",
+        "corn/cercospora_3.JPG"
       ],
       description: "Small, circular to elliptical spots with tan centers and reddish-brown margins on leaves.",
       cure: "Rotate crops and use resistant varieties.",
@@ -82,9 +83,9 @@ const diseaseDatabase = {
     {
       name: "Corn Northern Leaf Blight",
       images: [
-        "corn/northern_blight_1.jpg",
-        "corn/northern_blight_2.jpg",
-        "corn/northern_blight_3.jpg"
+        "corn/northern_blight_1.JPG",
+        "corn/northern_blight_2.JPG",
+        "corn/northern_blight_3.JPG"
       ],
       description: "Large, cigar-shaped lesions on leaves that can coalesce and kill entire leaves.",
       cure: "Plant resistant hybrids and practice crop rotation.",
@@ -94,9 +95,9 @@ const diseaseDatabase = {
     {
       name: "Corn Rust",
       images: [
-        "corn/rust_1.jpg",
-        "corn/rust_2.jpg",
-        "corn/rust_3.jpg"
+        "corn/rust_1.JPG",
+        "corn/rust_2.JPG",
+        "corn/rust_3.JPG"
       ],
       description: "Orange to brown pustules on leaves that rupture to release spores.",
       cure: "Plant early-maturing varieties to avoid peak rust periods.",
@@ -104,13 +105,13 @@ const diseaseDatabase = {
       englishMeds: "Triazole or strobilurin fungicides."
     }
   ],
-  "Grape": [
+  "grape": [
     {
       name: "Grape Black Measles",
       images: [
-        "grape/black_measles_1.jpg",
-        "grape/black_measles_2.jpg",
-        "grape/black_measles_3.jpg"
+        "grape/black_measles_1.JPG",
+        "grape/black_measles_2.JPG",
+        "grape/black_measles_3.JPG"
       ],
       description: "Dark, measles-like spots on berries and leaves, caused by fungal infection.",
       cure: "Prune infected wood and apply fungicides during wet periods.",
@@ -121,8 +122,8 @@ const diseaseDatabase = {
       name: "Grape Black Rot",
       images: [
         "grape/black_rot_1.jpg",
-        "grape/black_rot_2.jpg",
-        "grape/black_rot_3.jpg"
+        "grape/black_rot_2.JPG",
+        "grape/black_rot_3.JPG"
       ],
       description: "Brown lesions on leaves and shriveled, mummified berries.",
       cure: "Remove mummified berries and apply protectant fungicides.",
@@ -132,9 +133,9 @@ const diseaseDatabase = {
     {
       name: "Grape Leaf Blight",
       images: [
-        "grape/leaf_blight_1.jpg",
-        "grape/leaf_blight_2.jpg",
-        "grape/leaf_blight_3.jpg"
+        "grape/leaf_blight_1.JPG",
+        "grape/leaf_blight_2.JPG",
+        "grape/leaf_blight_3.JPG"
       ],
       description: "Large, irregular brown spots on leaves leading to premature defoliation.",
       cure: "Improve air circulation and avoid overhead irrigation.",
@@ -143,30 +144,6 @@ const diseaseDatabase = {
     }
   ],
   "Orange": [
-    {
-      name: "Orange Black Spot",
-      images: [
-        "orange/black_spot_1.jpg",
-        "orange/black_spot_2.jpg",
-        "orange/black_spot_3.jpg"
-      ],
-      description: "Dark, sunken spots on fruit that reduce marketability.",
-      cure: "Prune for good air circulation and apply copper sprays.",
-      ayurvedic: "Neem oil spray every 14 days.",
-      englishMeds: "Copper hydroxide or strobilurin fungicides."
-    },
-    {
-      name: "Orange Canker",
-      images: [
-        "orange/canker_1.jpg",
-        "orange/canker_2.jpg",
-        "orange/canker_3.jpg"
-      ],
-      description: "Raised, scabby lesions on fruit, leaves, and twigs.",
-      cure: "Remove infected material and apply copper bactericides.",
-      ayurvedic: "Garlic extract spray every 10 days.",
-      englishMeds: "Copper-based bactericides."
-    },
     {
       name: "Orange Haunglongbing",
       images: [
@@ -184,9 +161,9 @@ const diseaseDatabase = {
     {
       name: "Peach Bacterial Spot",
       images: [
-        "peach/bacterial_spot_1.jpg",
-        "peach/bacterial_spot_2.jpg",
-        "peach/bacterial_spot_3.jpg"
+        "peach/bacterial_spot_1.JPG",
+        "peach/bacterial_spot_2.JPG",
+        "peach/bacterial_spot_3.JPG"
       ],
       description: "Small, dark spots on leaves and fruit that may fall out creating 'shot holes'.",
       cure: "Plant resistant varieties and apply copper sprays during bloom.",
@@ -234,56 +211,6 @@ const diseaseDatabase = {
       englishMeds: "Metalaxyl or fosetyl-aluminum fungicides."
     }
   ],
-  "Rice": [
-    {
-      name: "Rice Bacterial Blight",
-      images: [
-        "rice/bacterial_blight_1.jpg",
-        "rice/bacterial_blight_2.jpg",
-        "rice/bacterial_blight_3.jpg"
-      ],
-      description: "Yellow streaks on leaves that turn white, leading to reduced grain filling.",
-      cure: "Use resistant varieties and avoid excessive nitrogen.",
-      ayurvedic: "Garlic-chili extract spray every 10 days.",
-      englishMeds: "Streptomycin sulfate or copper compounds."
-    },
-    {
-      name: "Rice Blast",
-      images: [
-        "rice/blast_1.jpg",
-        "rice/blast_2.jpg",
-        "rice/blast_3.jpg"
-      ],
-      description: "Diamond-shaped lesions on leaves and neck rot that can destroy entire panicles.",
-      cure: "Plant resistant varieties and maintain proper water management.",
-      ayurvedic: "Fermented buttermilk spray (10%) every 2 weeks.",
-      englishMeds: "Tricyclazole or isoprothiolane fungicides."
-    },
-    {
-      name: "Rice Brownspot",
-      images: [
-        "rice/brownspot_1.jpg",
-        "rice/brownspot_2.jpg",
-        "rice/brownspot_3.jpg"
-      ],
-      description: "Small brown spots on leaves that can coalesce, reducing photosynthesis.",
-      cure: "Improve soil fertility with silicon and zinc.",
-      ayurvedic: "Neem seed kernel extract (5%) fortnightly.",
-      englishMeds: "Mancozeb or propiconazole applications."
-    },
-    {
-      name: "Rice Tungro",
-      images: [
-        "rice/tungro_1.jpg",
-        "rice/tungro_2.jpg",
-        "rice/tungro_3.jpg"
-      ],
-      description: "Viral disease causing stunting and yellow-orange leaf discoloration, spread by leafhoppers.",
-      cure: "Control leafhopper vectors and remove infected plants.",
-      ayurvedic: "No effective cure - focus on prevention with healthy soil.",
-      englishMeds: "Insecticides to control vectors like imidacloprid."
-    }
-  ],
   "Squash": [
     {
       name: "Squash Powdery Mildew",
@@ -310,56 +237,6 @@ const diseaseDatabase = {
       cure: "Remove old leaves after harvest and apply fungicides.",
       ayurvedic: "Compost tea spray every 10 days.",
       englishMeds: "Myclobutanil or trifloxystrobin fungicides."
-    }
-  ],
-  "Sugarcane": [
-    {
-      name: "Sugarcane Mosaic",
-      images: [
-        "sugarcane/mosaic_1.jpg",
-        "sugarcane/mosaic_2.jpg",
-        "sugarcane/mosaic_3.jpg"
-      ],
-      description: "Light and dark green mosaic pattern on leaves, causing stunting.",
-      cure: "Plant virus-free seed cane and control aphid vectors.",
-      ayurvedic: "Neem oil spray to deter aphids.",
-      englishMeds: "No cure - remove infected plants."
-    },
-    {
-      name: "Sugarcane RedRot",
-      images: [
-        "sugarcane/redrot_1.jpg",
-        "sugarcane/redrot_2.jpg",
-        "sugarcane/redrot_3.jpg"
-      ],
-      description: "Red discoloration inside stalks with sour smell, causing wilting.",
-      cure: "Use disease-free seed pieces and practice crop rotation.",
-      ayurvedic: "Garlic extract drench for planted cuttings.",
-      englishMeds: "Hot water treatment of seed cane."
-    },
-    {
-      name: "Sugarcane Rust",
-      images: [
-        "sugarcane/rust_1.jpg",
-        "sugarcane/rust_2.jpg",
-        "sugarcane/rust_3.jpg"
-      ],
-      description: "Orange pustules on leaves that reduce photosynthetic area.",
-      cure: "Plant resistant varieties and avoid excessive nitrogen.",
-      ayurvedic: "Baking soda spray (1 tbsp per gallon).",
-      englishMeds: "Triazole fungicides if severe."
-    },
-    {
-      name: "Sugarcane Yellow",
-      images: [
-        "sugarcane/yellow_1.jpg",
-        "sugarcane/yellow_2.jpg",
-        "sugarcane/yellow_3.jpg"
-      ],
-      description: "Yellowing of leaves starting from tips, caused by phytoplasma.",
-      cure: "Remove infected plants and control leafhopper vectors.",
-      ayurvedic: "Neem oil spray to deter leafhoppers.",
-      englishMeds: "Insecticides to control vectors."
     }
   ],
   "Tomato": [
@@ -414,9 +291,9 @@ const diseaseDatabase = {
     {
       name: "Tomato Mosaic Virus",
       images: [
-        "tomato/mosaic_1.jpg",
-        "tomato/mosaic_2.jpg",
-        "tomato/mosaic_3.jpg"
+        "tomato/mosaic_virus_1.jpg",
+        "tomato/mosaic_virus_2.jpg",
+        "tomato/mosaic_virus_3.jpg"
       ],
       description: "Mottled light and dark green patterns on leaves with leaf distortion.",
       cure: "Use virus-free seed and control aphid vectors.",
@@ -426,9 +303,9 @@ const diseaseDatabase = {
     {
       name: "Tomato Septoria Leaf Spot",
       images: [
-        "tomato/septoria_1.jpg",
-        "tomato/septoria_2.jpg",
-        "tomato/septoria_3.jpg"
+        "tomato/septoria_leaf_spot_1.jpg",
+        "tomato/septoria_leaf_spot_2.jpg",
+        "tomato/septoria_leaf_spot_3.jpg"
       ],
       description: "Small circular spots with dark margins and light centers on lower leaves.",
       cure: "Remove infected leaves and avoid overhead watering.",
@@ -462,9 +339,9 @@ const diseaseDatabase = {
     {
       name: "Tomato Yellow Leaf Curl Virus",
       images: [
-        "tomato/yellow_curl_1.jpg",
-        "tomato/yellow_curl_2.jpg",
-        "tomato/yellow_curl_3.jpg"
+        "tomato/yellow_leaf_curl_virus_1.jpg",
+        "tomato/yellow_leaf_curl_virus_2.jpg",
+        "tomato/yellow_leaf_curl_virus_3.jpg"
       ],
       description: "Upward curling of leaves with yellow margins, spread by whiteflies.",
       cure: "Control whitefly vectors and remove infected plants.",
@@ -518,9 +395,9 @@ const healthyPlantsDatabase = {
   "Cherry": {
     name: "Healthy Cherry",
     images: [
-      "cherry/healthy_1.jpg",
-      "cherry/healthy_2.jpg",
-      "cherry/healthy_3.jpg"
+      "cherry/healthy_1.JPG",
+      "cherry/healthy_2.JPG",
+      "cherry/healthy_3.JPG"
     ],
     description: "Healthy cherry tree with glossy leaves and well-formed fruit.",
     characteristics: [
@@ -572,26 +449,6 @@ const healthyPlantsDatabase = {
       "Grape Black Measles",
       "Grape Black Rot",
       "Grape Leaf Blight"
-    ]
-  },
-  "Orange": {
-    name: "Healthy Orange",
-    images: [
-      "orange/healthy_1.jpg",
-      "orange/healthy_2.jpg",
-      "orange/healthy_3.jpg"
-    ],
-    description: "Healthy orange tree with glossy leaves and developing fruit.",
-    characteristics: [
-      "Glossy dark green leaves",
-      "Smooth fruit skin",
-      "No leaf curling",
-      "Vigorous new growth"
-    ],
-    affectedBy: [
-      "Orange Black Spot",
-      "Orange Canker",
-      "Orange Haunglongbing"
     ]
   },
   "Peach": {
@@ -670,27 +527,6 @@ const healthyPlantsDatabase = {
       "Raspberry Leaf Spot"
     ]
   },
-  "Rice": {
-    name: "Healthy Rice",
-    images: [
-      "rice/healthy_1.jpg",
-      "rice/healthy_2.jpg",
-      "rice/healthy_3.jpg"
-    ],
-    description: "Healthy rice plants with upright growth and uniform coloration.",
-    characteristics: [
-      "Uniform green color",
-      "Upright growth habit",
-      "No lesions on leaves",
-      "No stunting or discoloration"
-    ],
-    affectedBy: [
-      "Rice Blast",
-      "Rice Brown Spot",
-      "Rice Bacterial Blight",
-      "Rice Tungro"
-    ]
-  },
   "Soybean": {
     name: "Healthy Soybean",
     images: [
@@ -710,25 +546,6 @@ const healthyPlantsDatabase = {
       "Soybean Mosaic Virus"
     ]
   },
-  "Squash": {
-    name: "Healthy Squash",
-    images: [
-      "squash/healthy_1.jpg",
-      "squash/healthy_2.jpg",
-      "squash/healthy_3.jpg"
-    ],
-    description: "Healthy squash plants with large leaves and developing fruit.",
-    characteristics: [
-      "Large, unblemished leaves",
-      "Vigorous vines",
-      "Developing squash fruit",
-      "No powdery residue"
-    ],
-    affectedBy: [
-      "Squash Powdery Mildew",
-      "Squash Vine Borer"
-    ]
-  },
   "Strawberry": {
     name: "Healthy Strawberry",
     images: [
@@ -746,27 +563,6 @@ const healthyPlantsDatabase = {
     affectedBy: [
       "Strawberry Leaf Scorch",
       "Strawberry Powdery Mildew"
-    ]
-  },
-  "Sugarcane": {
-    name: "Healthy Sugarcane",
-    images: [
-      "sugarcane/healthy_1.jpg",
-      "sugarcane/healthy_2.jpg",
-      "sugarcane/healthy_3.jpg"
-    ],
-    description: "Healthy sugarcane stalks with uniform growth and coloration.",
-    characteristics: [
-      "Tall, straight stalks",
-      "Uniform leaf color",
-      "No leaf spots",
-      "No stalk discoloration"
-    ],
-    affectedBy: [
-      "Sugarcane Mosaic",
-      "Sugarcane RedRot",
-      "Sugarcane Rust",
-      "Sugarcane Yellow"
     ]
   },
   "Tomato": {
@@ -838,61 +634,67 @@ const healthyPlantsDatabase = {
 
     // Create healthy plant accordions
     function createHealthyAccordions() {
-      const container = document.getElementById('healthyContainer');
-      container.innerHTML = '';
+    const container = document.getElementById('healthyContainer');
+    container.innerHTML = '';
+    
+    for (let crop in healthyPlantsDatabase) {
+      const plant = healthyPlantsDatabase[crop];
       
-      for (let crop in healthyPlantsDatabase) {
-        const plant = healthyPlantsDatabase[crop];
-        
-        const button = document.createElement('button');
-        button.className = 'accordion healthy-accordion';
-        button.innerHTML = `
-            <i class="fas fa-leaf"></i> 
-            <span class="crop-name">${crop}</span>
-            <span class="count-badge">${healthyPlantsDatabase[crop].affectedBy.length}</span>
-        `;
-        
-        const panel = document.createElement('div');
-        panel.className = 'panel';
-        
-        const card = document.createElement('div');
-        card.className = 'disease-card';
-        card.dataset.name = plant.name.toLowerCase();
-        
-        card.innerHTML = `
-          <div class="image-slider">
-            <div class="slider-images">
-              ${plant.images.map(img => `
-                <img src="/static/assets/diseases/${img}" alt="${plant.name}" 
-                     onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"150\" viewBox=\"0 0 200 150\"%3E%3Crect fill=\"%23f0f0f0\" width=\"200\" height=\"150\"%3E%3C/rect%3E%3Ctext fill=\"%23aaa\" font-family=\"sans-serif\" font-size=\"12\" dy=\"4\" text-anchor=\"middle\" x=\"100\" y=\"75\"%3EImage not available%3C/text%3E%3C/svg%3E'">
-              `).join('')}
-            </div>
-            <div class="slider-dots">
-              ${plant.images.map((_, index) => `
-                <div class="slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
-              `).join('')}
-            </div>
-          </div>
-          <div class="disease-info">
-            <h2>${plant.name}</h2>
-            <p><strong><i class="fas fa-info-circle"></i> Description:</strong> ${plant.description}</p>
-            <p><strong><i class="fas fa-check-circle"></i> Characteristics:</strong></p>
+      const card = document.createElement('div');
+      card.className = 'healthy-plant-card';
+      card.dataset.name = plant.name.toLowerCase();
+      
+      card.innerHTML = `
+        <div class="healthy-plant-badge">Healthy</div>
+        <img src="/static/assets/diseases/${plant.images[0]}" alt="${plant.name}" 
+            class="healthy-plant-image"
+            onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"150\" viewBox=\"0 0 200 150\"%3E%3Crect fill=\"%23f0f0f0\" width=\"200\" height=\"150\"%3E%3C/rect%3E%3Ctext fill=\"%23aaa\" font-family=\"sans-serif\" font-size=\"12\" dy=\"4\" text-anchor=\"middle\" x=\"100\" y=\"75\"%3EImage not available%3C/text%3E%3C/svg%3E'">
+        <div class="healthy-plant-info">
+          <h3 class="healthy-plant-name">${plant.name}</h3>
+          <p class="healthy-plant-description">${plant.description}</p>
+          <div class="healthy-plant-details">
+            <h4><i class="fas fa-check-circle"></i> Key Characteristics</h4>
             <ul>
               ${plant.characteristics.map(char => `<li>${char}</li>`).join('')}
             </ul>
-            <div class="affected-diseases">
-              <h4><i class="fas fa-exclamation-triangle"></i> Can be affected by:</h4>
-              <ul>
-                ${plant.affectedBy.map(disease => `<li>${disease}</li>`).join('')}
-              </ul>
+            <h4><i class="fas fa-exclamation-triangle"></i> Potential Threats</h4>
+            <div class="disease-tags">
+              ${plant.affectedBy.map(disease => `<span class="disease-tag">${disease}</span>`).join('')}
             </div>
-          </div>`;
-        
-        panel.appendChild(card);
-        container.appendChild(button);
-        container.appendChild(panel);
-      }
+          </div>
+        </div>`;
+      
+      container.appendChild(card);
     }
+    
+    // Add hover effect to show more images
+    const cards = document.querySelectorAll('.healthy-plant-card');
+    cards.forEach(card => {
+      const plantName = card.dataset.name.replace(' ', '-');
+      const plant = healthyPlantsDatabase[Object.keys(healthyPlantsDatabase).find(key => 
+        healthyPlantsDatabase[key].name.toLowerCase() === plantName)];
+      
+      if (plant && plant.images.length > 1) {
+        let currentImgIndex = 0;
+        const imgElement = card.querySelector('.healthy-plant-image');
+        
+        card.addEventListener('mouseenter', () => {
+          currentImgIndex = 1; // Start with second image on hover
+          imgElement.src = `/static/assets/diseases/${plant.images[currentImgIndex]}`;
+          
+          const interval = setInterval(() => {
+            currentImgIndex = (currentImgIndex + 1) % plant.images.length;
+            imgElement.src = `/static/assets/diseases/${plant.images[currentImgIndex]}`;
+          }, 2000);
+          
+          card.addEventListener('mouseleave', () => {
+            clearInterval(interval);
+            imgElement.src = `/static/assets/diseases/${plant.images[0]}`;
+          }, { once: true });
+        });
+      }
+    });
+  }
 
 // DOM elements
 const accordionContainer = document.getElementById('accordionContainer');

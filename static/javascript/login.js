@@ -17,11 +17,15 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Initialize intl-tel-input for the phone input field
-const phoneInputField = document.querySelector("#phone");
-const iti = window.intlTelInput(phoneInputField, {
-    initialCountry: "in", // Default to India
-    separateDialCode: true,
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+document.addEventListener("DOMContentLoaded", function() {
+    const phoneInputField = document.querySelector("#mobileno"); // Changed from #phone to #mobileno
+    if (phoneInputField) {
+        const iti = window.intlTelInput(phoneInputField, {
+            initialCountry: "in",
+            separateDialCode: true,
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
+    }
 });
 
 // Registration form submission
