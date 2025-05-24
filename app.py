@@ -283,7 +283,11 @@ def disease_info():
 def login():
     """Render the Login page."""
     google_client_id = os.getenv("GOOGLE_CLIENT_ID")
-    return render_template("login.html", google_client_id=google_client_id)
+    # Check if the request is for registration (has hash)
+    is_register = request.args.get('register') or '#register' in request.referrer if request.referrer else False
+    return render_template("login.html", 
+                         google_client_id=google_client_id,
+                         is_register=is_register)
 
 @app.route('/login', methods=['POST'])
 def login_val():
@@ -386,6 +390,20 @@ def register():
             "status": "error", 
             "message": "Internal Server Error"
         }), 500
+    
+
+@app.route('/check-session')
+def check_session():
+    """Check if user has an active session"""
+    if 'user' in session:
+        return jsonify({'logged_in': True})
+    return jsonify({'logged_in': False})
+
+@app.route('/logout')
+def logout():
+    """Clear user session"""
+    session.pop('user', None)
+    return redirect(url_for('upload_file'))
 
 if __name__ == '__main__':
     app.run(debug=True)

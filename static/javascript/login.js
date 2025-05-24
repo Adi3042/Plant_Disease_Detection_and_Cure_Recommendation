@@ -28,6 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// In the script section of login.html
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we should start in sign-up mode
+    if (window.location.hash === '#register') {
+        container.classList.add("sign-up-mode");
+    }
+});
+
 // Registration form submission
 document.querySelector(".registration-form").addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevent default form submission

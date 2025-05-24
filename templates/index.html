@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="icon" href="/static/assets/logoo.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 
 <body>
@@ -166,7 +167,6 @@
         </div>
     </footer>
 
-
     <!-- Google Sign-In Button
     <div class="auth-container">
         <h3>Sign in for full features</h3>
@@ -193,5 +193,32 @@
     <!-- Load Google Identity Services script -->
     <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="/static/javascript/index.js"></script>  -->
+    <!-- Animated Intro Overlay -->
+<!-- Animated Intro Overlay -->
+    <div id="intro-overlay" class="intro-overlay">
+        <div class="left-panel">
+            <div class="panel-content">
+                <h2>Welcome to Plant Disease Detector</h2>
+                <p>Your AI-powered solution for identifying plant health issues and getting expert recommendations</p>
+                <div class="particles" id="particles-left"></div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="panel-content">
+                <button id="login-btn" class="auth-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button id="register-btn" class="auth-btn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+                <p style="color: white; margin-top: 20px; animation: fadeInUp 1s ease 0.9s forwards; opacity: 0;">
+                    Get started in seconds
+                </p>
+                <div class="particles" id="particles-right"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/javascript/index.js"></script>
+    <script src="/static/javascript/intro.js"></script>
 </body>
 </html>
