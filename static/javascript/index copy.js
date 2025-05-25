@@ -1,20 +1,15 @@
-// Camera Capture Functionality
+// Live Capture Functionality
 const captureBtn = document.getElementById('capture-btn');
-const cameraContainer = document.getElementById('camera-container');
 const liveVideo = document.getElementById('live-video');
-const captureSnapshotBtn = document.getElementById('capture-snapshot');
-const cancelCaptureBtn = document.getElementById('cancel-capture');
-const fileInput = document.getElementById('file');
-let mediaStream = null;
-const captureCanvas = document.createElement('canvas');
+const cameraContainer = document.getElementById('camera-container');
+const captureCanvas = document.createElement('canvas'); // Added missing canvas element
 
 if (captureBtn) {
     captureBtn.addEventListener('click', () => {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
-                mediaStream = stream; // Store the stream for later cleanup
                 liveVideo.srcObject = stream;
-                cameraContainer.style.display = 'flex';
+                cameraContainer.style.display = 'flex'; // Show the camera container
             })
             .catch(err => {
                 console.error('Error accessing camera:', err);
@@ -22,46 +17,16 @@ if (captureBtn) {
             });
     });
 
-    // Implement capture snapshot button functionality
-    if (captureSnapshotBtn) {
-        captureSnapshotBtn.addEventListener('click', () => {
-            if (!mediaStream) return;
-            
-            const context = captureCanvas.getContext('2d');
-            captureCanvas.width = liveVideo.videoWidth;
-            captureCanvas.height = liveVideo.videoHeight;
-            context.drawImage(liveVideo, 0, 0);
-            const imageData = captureCanvas.toDataURL('image/png');
-            console.log('Captured Image:', imageData);
-            
-            // Here you would typically send the image to your backend
-            alert('Image captured successfully! Ready for analysis.');
-            
-            // Clean up
-            stopCamera();
-        });
-    }
-
-    // Implement cancel button functionality
-    if (cancelCaptureBtn) {
-        cancelCaptureBtn.addEventListener('click', () => {
-            stopCamera();
-        });
-    }
-}
-
-// Function to stop camera and clean up
-function stopCamera() {
-    if (mediaStream) {
-        mediaStream.getTracks().forEach(track => track.stop());
-        mediaStream = null;
-    }
-    if (liveVideo.srcObject) {
-        liveVideo.srcObject = null;
-    }
-    if (cameraContainer) {
-        cameraContainer.style.display = 'none';
-    }
+    liveVideo.addEventListener('click', () => {
+        const context = captureCanvas.getContext('2d');
+        captureCanvas.width = liveVideo.videoWidth;
+        captureCanvas.height = liveVideo.videoHeight;
+        context.drawImage(liveVideo, 0, 0);
+        const imageData = captureCanvas.toDataURL('image/png');
+        console.log('Captured Image:', imageData);
+        // Instead of just alerting, you might want to send this to your backend
+        alert('Image captured successfully! Ready for analysis.');
+    });
 }
 
 // Session Management
@@ -202,6 +167,7 @@ function decodeJwtResponse(token) {
 }
 
 // Drag and Drop + AJAX Upload
+const fileInput = document.getElementById('file');
 const fileLabel = document.getElementById('file-label');
 const uploadContainer = document.getElementById('upload-container');
 const uploadForm = document.getElementById('upload-form');

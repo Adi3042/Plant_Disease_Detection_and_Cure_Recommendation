@@ -371,6 +371,10 @@ a.cta:hover {
   transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
 }
 
+p, li {
+  text-align: justify;
+}
+
 .member:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(0, 255, 100, 0.5);
