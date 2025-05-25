@@ -405,5 +405,85 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('upload_file'))
 
+feedback_collection = db["feedback"]
+
+@app.route('/submit-feedback', methods=['POST'])
+def submit_feedback():
+    try:
+        data = request.json
+        
+        # Prepare feedback document
+        feedback_data = {
+            "feedback": data.get('feedback', ''),
+            "rating": data.get('rating', None),
+            "pageUrl": data.get('pageUrl', ''),
+            "timestamp": datetime.utcnow(),
+            "user_agent": request.headers.get('User-Agent', ''),
+            "ip_address": request.remote_addr
+        }
+        
+        # Insert into MongoDB
+        feedback_collection.insert_one(feedback_data)
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Feedback submitted successfully'
+        })
+        
+    except Exception as e:
+        print(f"Error submitting feedback: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': 'Failed to submit feedback'
+        }), 500
+
+@app.route('/ask-plantguard', methods=['POST'])
+def ask_plantguard():
+    try:
+        data = request.json
+        question = data.get('question', '')
+        
+        # Enhanced prompt with model information
+        enhanced_prompt = f"""
+        You are PlantGuard, an AI assistant for a plant disease detection system. 
+        Here are key details about the system:
+        - Model: MobileNetV2
+        - Dataset: PlantVillage (61,486 images)
+        - Accuracy: 99.39%
+        - Training time: 2.5 hours
+        
+        User question: "{question}"
+        
+        Provide a helpful, concise answer in markdown format. Focus on:
+        - Explaining plant disease detection
+        - How to use the system
+        - Technical details when asked
+        - Being friendly and professional
+        
+        If question is unrelated, politely guide back to plant topics.
+        Keep responses under 5 sentences when possible.
+        Use **bold** for emphasis and *italic* for special notes.
+        """
+        
+        euriai_response = euriai_client.generate_completion(
+            prompt=enhanced_prompt,
+            temperature=0.7,
+            max_tokens=300
+        )
+        
+        answer = euriai_response['choices'][0]['message']['content']
+        
+        return jsonify({
+            'status': 'success',
+            'answer': answer
+        })
+        
+    except Exception as e:
+        print(f"Error in PlantGuard chatbot: {e}")
+        return jsonify({
+            'status': 'error',
+            'answer': "I'm having trouble processing your request. Please try again later."
+        }), 500
+    
 if __name__ == '__main__':
     app.run(debug=True)

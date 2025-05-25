@@ -6,6 +6,7 @@
     <title>Plant Leaf Disease Detection</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="icon" href="/static/assets/logoo.png" />
+    <link rel="stylesheet" href="/static/css/chatbot.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
@@ -21,6 +22,7 @@
             <p class="loader-subtext">Our AI is carefully examining your plant for diseases</p>
         </div>
     </div>
+    <div id="spinner-loader" class="loader-spinner" style="display: none;"></div>
     
     <header>
         <a href="/" class="logo-link">
@@ -181,33 +183,6 @@
         </div>
     </footer>
 
-    <!-- Google Sign-In Button
-    <div class="auth-container">
-        <h3>Sign in for full features</h3>
-        <div class="auth-buttons">
-            <div id="g_id_onload"
-                data-client_id="{{ google_client_id }}"
-                data-auto_prompt="false"
-                data-scope="https://www.googleapis.com/auth/gmail.readonly">
-            </div>
-            <div class="g_id_signin" 
-                data-type="standard"
-                data-shape="pill"
-                data-theme="outline"
-                data-text="continue_with"
-                data-size="large"
-                data-logo_alignment="left">
-            </div>
-        </div>
-    </div>
-
-     Button to Access Gmail -->
-    <!-- <button onclick="requestGmailAccess()">Access Gmail</button> -->
-
-    <!-- Load Google Identity Services script -->
-    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="/static/javascript/index.js"></script>  -->
-    <!-- Animated Intro Overlay -->
 <!-- Animated Intro Overlay -->
     <div id="intro-overlay" class="intro-overlay">
         <div class="left-panel">
@@ -232,7 +207,32 @@
             </div>
         </div>
     </div>
+
+    <!-- PlantGuard Chatbot -->
+    <div class="plantguard-chatbot">
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-leaf"></i>
+        </button>
+        <div class="chatbot-container" id="chatbotContainer">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> PlantGuard Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="quick-replies" id="quickReplies">
+                <!-- Quick reply buttons will appear here -->
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ask about plant diseases...">
+                <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
     <script src="/static/javascript/index.js"></script>
     <script src="/static/javascript/intro.js"></script>
+    <script src="/static/javascript/chatbot.js"></script>
 </body>
 </html>

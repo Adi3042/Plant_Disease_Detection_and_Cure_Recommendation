@@ -9,6 +9,8 @@ const captureCanvas = document.createElement('canvas');
 const fileLabel = document.getElementById('file-label');
 const uploadContainer = document.getElementById('upload-container');
 const uploadForm = document.getElementById('upload-form');
+const loader = document.getElementById('loader-container');
+const spinnerLoader = document.getElementById('spinner-loader');
 let mediaStream = null;
 let capturedImageData = null;
 
@@ -31,27 +33,30 @@ if (captureBtn) {
         captureSnapshotBtn.addEventListener('click', () => {
             if (!mediaStream) return;
             
+            // Show spinner immediately
+            if (spinnerLoader) spinnerLoader.style.display = 'block';
+            
             const context = captureCanvas.getContext('2d');
             captureCanvas.width = liveVideo.videoWidth;
             captureCanvas.height = liveVideo.videoHeight;
             context.drawImage(liveVideo, 0, 0);
             capturedImageData = captureCanvas.toDataURL('image/png');
             
-            // Create a file object from the data URL
+            // Create file object
             const blob = dataURLtoBlob(capturedImageData);
-            const file = new File([blob], 'captured-image.png', { type: 'image/png' });
+            const file = new File([blob], 'captured-image.png', {type: 'image/png'});
             
-            // Update the file input and label
+            // Update file input
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
             fileInput.files = dataTransfer.files;
             fileLabel.textContent = 'File selected: captured-image.png';
             
-            // Close the camera
             stopCamera();
             
-            // Show the upload container with the captured image ready for analysis
-            uploadContainer.style.display = 'flex';
+            // Show both spinner and loader
+            if (loader) loader.style.display = 'flex';
+            uploadForm.submit();
         });
     }
 
@@ -120,6 +125,7 @@ function checkSession() {
 // Initialize when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     checkSession();
+    if (spinnerLoader) spinnerLoader.style.display = 'none';
     
     // Setup login/register buttons
     const loginBtn = document.getElementById('login-btn');
@@ -255,7 +261,8 @@ if (fileInput && fileLabel && uploadContainer && uploadForm) {
     // Form submission with loader
     uploadForm.addEventListener('submit', function(e) {
         if (fileInput.files.length > 0) {
-            const loader = document.getElementById('loader-container');
+            // Show both spinner and loader
+            if (spinnerLoader) spinnerLoader.style.display = 'block';
             if (loader) loader.style.display = 'flex';
         } else {
             e.preventDefault();
