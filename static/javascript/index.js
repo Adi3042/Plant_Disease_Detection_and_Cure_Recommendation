@@ -5,8 +5,12 @@ const liveVideo = document.getElementById('live-video');
 const captureSnapshotBtn = document.getElementById('capture-snapshot');
 const cancelCaptureBtn = document.getElementById('cancel-capture');
 const fileInput = document.getElementById('file');
-let mediaStream = null;
 const captureCanvas = document.createElement('canvas');
+const fileLabel = document.getElementById('file-label');
+const uploadContainer = document.getElementById('upload-container');
+const uploadForm = document.getElementById('upload-form');
+let mediaStream = null;
+let capturedImageData = null;
 
 if (captureBtn) {
     captureBtn.addEventListener('click', () => {
@@ -31,14 +35,23 @@ if (captureBtn) {
             captureCanvas.width = liveVideo.videoWidth;
             captureCanvas.height = liveVideo.videoHeight;
             context.drawImage(liveVideo, 0, 0);
-            const imageData = captureCanvas.toDataURL('image/png');
-            console.log('Captured Image:', imageData);
+            capturedImageData = captureCanvas.toDataURL('image/png');
             
-            // Here you would typically send the image to your backend
-            alert('Image captured successfully! Ready for analysis.');
+            // Create a file object from the data URL
+            const blob = dataURLtoBlob(capturedImageData);
+            const file = new File([blob], 'captured-image.png', { type: 'image/png' });
             
-            // Clean up
+            // Update the file input and label
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+            fileLabel.textContent = 'File selected: captured-image.png';
+            
+            // Close the camera
             stopCamera();
+            
+            // Show the upload container with the captured image ready for analysis
+            uploadContainer.style.display = 'flex';
         });
     }
 
@@ -48,6 +61,19 @@ if (captureBtn) {
             stopCamera();
         });
     }
+}
+
+// Helper function to convert data URL to Blob
+function dataURLtoBlob(dataURL) {
+    const arr = dataURL.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
 }
 
 // Function to stop camera and clean up
@@ -109,9 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (registerBtn) {
         registerBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            // If you have separate pages:
-            // window.location.href = '/register';
-            // If using the same page with toggle:
             window.location.href = '/login?action=register';
         });
     }
@@ -181,7 +204,7 @@ function handleCredentialResponse(response) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            window.location.reload(); // Refresh to update session state
+            window.location.reload();
         } else {
             alert('Login failed: ' + data.message);
         }
@@ -200,11 +223,6 @@ function decodeJwtResponse(token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
-
-// Drag and Drop + AJAX Upload
-const fileLabel = document.getElementById('file-label');
-const uploadContainer = document.getElementById('upload-container');
-const uploadForm = document.getElementById('upload-form');
 
 if (fileInput && fileLabel && uploadContainer && uploadForm) {
     fileInput.addEventListener('change', function() {
