@@ -1,4 +1,4 @@
-// Enhanced PlantGuard Chatbot with Markdown and Feedback
+// Enhanced PlantGuard Chatbot with Markdown, Feedback, and Project Info
 document.addEventListener('DOMContentLoaded', function() {
     const chatbotToggle = document.getElementById('chatbotToggle');
     const chatbotContainer = document.getElementById('chatbotContainer');
@@ -34,20 +34,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Initialize with welcome message if empty
             if (chatbotMessages.children.length === 0) {
                 addBotMessage(`
-**Hello! I'm PlantGuard, your AI plant health assistant.** 🌱
+**Hello! I'm PlantGuard, your AI-powered plant health assistant.** 🌱
 
-I can help you with:
-- **Plant disease detection**
-- **Model information**
-- **Usage instructions**
-- **Feedback collection**
+I was developed by Aditya Yadav and Adnan Riyaz under Dr. Snehlata guidance. I can:
+
+- Detect **50+ plant diseases** with 99.4% accuracy
+- Provide **treatment recommendations**
+- Explain our **project tech stack**
+- Connect you with the **development team**
 
 How can I help you today?
                 `);
                 
                 showQuickReplies([
                     "How does this work?",
-                    "Tell me about the AI model",
+                    "Meet the developers 👨‍💻",
+                    "Technical architecture",
                     "What diseases can you detect?",
                     "Give feedback"
                 ]);
@@ -233,6 +235,117 @@ We typically respond within 24 hours.
                 "Tell me about the AI model",
                 "What diseases can you detect?",
                 "Give feedback"
+            ]);
+        }
+        else if (lowerMessage.includes('project') || lowerMessage.includes('team') || lowerMessage.includes('developer')) {
+            addBotMessage(`
+**👨‍💻 Development Team & Project Information** 🚀
+
+**Project Leads:**
+1. **Aditya Yadav** (Team Lead)
+   - 🐦 Twitter: [@i_aditya_30](https://x.com/i_aditya_30)
+   - 💼 LinkedIn: [Data Scientist Profile](https://www.linkedin.com/in/datascientist-aditya/)
+   - 👨‍💻 GitHub: [Adi3042](https://github.com/Adi3042/)
+   - 📸 Instagram: [@i_aditya_30](https://www.instagram.com/i_aditya_30)
+
+2. **Adnan Riyaz** (Co-developer)
+   - 💼 LinkedIn: [Adnan's Profile](https://www.linkedin.com/in/datascientist-adnan)
+   - 📸 Instagram: [@adnan_khan_21](https://instagram.com/adnan_khan_21)
+   - 👨‍💻 GitHub: [adnandata7](https://github.com/adnandata7)
+
+**Mentor:** Dr. Snehlata (Assistant Professor)
+
+**🛠️ Technical Stack:**
+- **Core Model**: MobileNetV2 (Customized)
+- **Training Data**: 61,486 images from PlantVillage
+- **Accuracy**: 99.39% (Test Set)
+- **Frontend**: Flask + HTML/CSS/JS
+- **Database**: MongoDB 
+- **APIs**: Euriai for NLP
+
+**Key Features:**
+✓ Real-time camera detection  
+✓ Ayurvedic remedy suggestions  
+✓ Farmer-friendly interface
+            `);
+            showQuickReplies([
+                "Show project demo video",
+                "Technical architecture", 
+                "View dataset details",
+                "Request research paper",
+                "Back to main menu"
+            ]);
+        }
+        else if (lowerMessage.includes('demo') || lowerMessage.includes('video')) {
+            addBotMessage(`
+**Project Demo Video** 🎥
+
+You can view our project demonstration video on YouTube:
+[Watch Demo Video](https://youtube.com/your-demo-link)
+
+The video covers:
+- System overview
+- Live detection demo
+- Technical explanation
+- User testimonials
+            `);
+            showQuickReplies([
+                "Meet the developers 👨‍💻",
+                "Technical architecture",
+                "Back to main menu"
+            ]);
+        }
+        else if (lowerMessage.includes('technical') || lowerMessage.includes('architecture')) {
+            addBotMessage(`
+**Technical Architecture** 💻
+
+Our system is built with:
+
+**Frontend:**
+- Flask web framework
+- Responsive HTML/CSS
+- Interactive JavaScript
+- Real-time camera 
+
+**Backend:**
+- Custom MobileNetV2 model
+- TensorFlow Lite for edge deployment
+- MongoDB for data storage
+- Euriai API for natural language
+
+**Model Training:**
+- 61,486 labeled images
+- 50+ plant disease classes
+- 2.5 hours training time
+- 99.39% test accuracy
+            `);
+            showQuickReplies([
+                "View dataset details",
+                "Meet the developers 👨‍💻",
+                "Back to main menu"
+            ]);
+        }
+        else if (lowerMessage.includes('dataset') || lowerMessage.includes('training data')) {
+            addBotMessage(`
+**Dataset Information** 📊
+
+We trained our model using the PlantVillage dataset:
+
+- **Total Images:** 61,486
+- **Disease Classes:** 50+
+- **Plant Types:** 14 (Tomato, Potato, etc.)
+- **Image Resolution:** 256x256 pixels
+- **Data Augmentation:** Rotation, flipping, zoom
+
+The dataset was carefully curated to ensure:
+✓ Balanced classes  
+✓ High-quality images  
+✓ Real-world conditions
+            `);
+            showQuickReplies([
+                "Technical architecture",
+                "Meet the developers 👨‍💻",
+                "Back to main menu"
             ]);
         }
         else {

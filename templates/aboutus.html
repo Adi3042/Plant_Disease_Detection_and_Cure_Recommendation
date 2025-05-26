@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/static/assets/favicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/static/css/chatbot.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/aboutus.css">
@@ -40,7 +41,7 @@
       <div class="container">
         <h2>About Our Project</h2>
         <p>
-          The <strong>Plant Disease Detection System</strong> is an AI-powered application developed to accurately identify plant leaf diseases. Using deep learning and the publicly available PlantVillage dataset, our CNN-based model achieved a remarkable <strong>testing accuracy of 99.39%</strong>.
+          The <strong>Plant Disease Detection System</strong> is an AI-powered application developed to accurately identify plant leaf diseases. Using deep learning and the publicly available PlantVillage dataset, our CNN-based model achieved a remarkable <strong>testing accuracy of 99.37%</strong>.
         </p>
         <p>
           The goal of this project is to support farmers and agronomists by providing fast, reliable, and automated disease diagnosis, thereby reducing crop losses and promoting sustainable agriculture practices.
@@ -66,7 +67,7 @@
             The Plant Disease Detection System uses advanced deep learning to identify crop leaf diseases with exceptional precision. Designed to assist farmers and agricultural experts, our solution provides real-time insights using just an image of the infected leaf.
           </p>
           <p>
-            By harnessing the power of transfer learning and a robust image dataset, we achieved a model testing accuracy of <strong>99.32%</strong>. This ensures reliable predictions, making it a practical tool for field use and academic research alike.
+            By harnessing the power of transfer learning and a robust image dataset, we achieved a model testing accuracy of <strong>99.37%</strong>. This ensures reliable predictions, making it a practical tool for field use and academic research alike.
           </p>
           <a class="cta" href="/research_paper">Learn more »</a>
         </div>
@@ -98,7 +99,7 @@
           <img src="/static/assets/aditya_pic.jpeg" alt="Aditya Yadav" />
           <h3>Aditya Yadav</h3>
           <p>
-            Final-year B.Tech CSE student and lead developer of the Plant Disease Detection System. Specialized in deep learning, model training, and deployment. Achieved 99.32% model testing accuracy.
+            Final-year B.Tech CSE student and lead developer of the Plant Disease Detection System. Specialized in deep learning, model training, and deployment. Achieved 99.37% model testing accuracy.
           </p>
           <div class="social">
             <a title="LinkedIn" href="https://www.linkedin.com/in/datascientist-aditya/"><img src="/static/assets/linkedin.png" alt="linkedin" /></a>
@@ -122,7 +123,7 @@
 
         <div class="member">
           <img src="/static/assets/person_logo.jpg" alt="Dr. Snehlata Singh" />
-          <h3>Dr. Snehlata Singh</h3>
+          <h3>Dr. Snehlata</h3>
           <p>
             Respected mentor and academic guide for the Plant Disease Detection project. She provided invaluable support in research, model evaluation, and project direction.
           </p>
@@ -212,5 +213,30 @@
           <p style="text-align: center;">&copy; 2025 PLANTDISEASE Detector. All rights reserved. | IEEE Technology Under Review</p>
         </div>
       </footer>
+
+      <!-- PlantGuard Chatbot -->
+      <div class="plantguard-chatbot">
+          <button class="chatbot-toggle" id="chatbotToggle">
+              <i class="fas fa-leaf"></i>
+          </button>
+          <div class="chatbot-container" id="chatbotContainer">
+              <div class="chatbot-header">
+                  <h3><i class="fas fa-robot"></i> PlantGuard Assistant</h3>
+                  <button class="chatbot-close" id="chatbotClose">&times;</button>
+              </div>
+              <div class="chatbot-messages" id="chatbotMessages">
+                  <!-- Messages will appear here -->
+              </div>
+              <div class="quick-replies" id="quickReplies">
+                  <!-- Quick reply buttons will appear here -->
+              </div>
+              <div class="chatbot-input">
+                  <input type="text" id="chatbotInput" placeholder="Ask about plant diseases...">
+                  <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+              </div>
+          </div>
+      </div>
+
+      <script src="/static/javascript/chatbot.js"></script>
   </body>
 </html>

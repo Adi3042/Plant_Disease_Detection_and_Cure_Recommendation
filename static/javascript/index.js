@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup login/register buttons
     const loginBtn = document.getElementById('login-btn');
     const registerBtn = document.getElementById('register-btn');
+    const logoutLinks = document.querySelectorAll('.logout-btn');
     
     if (loginBtn) {
         loginBtn.addEventListener('click', function(e) {
@@ -144,6 +145,27 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/login?action=register';
         });
     }
+
+    logoutLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/logout', {
+                method: 'GET',
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                if (response.redirected) {
+                    // Show intro overlay after logout
+                    document.getElementById('intro-overlay').style.display = 'flex';
+                    document.body.classList.add('overlay-active');
+                    window.location.href = response.url;
+                }
+            })
+            .catch(err => {
+                console.error('Logout error:', err);
+            });
+        });
+    });
     
     // Initialize particles.js if overlay exists
     if (document.getElementById('intro-overlay')) {

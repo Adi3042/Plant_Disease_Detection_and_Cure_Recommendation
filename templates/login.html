@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <link rel="icon" href="/static/assets/login_logo.jpeg" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="/static/javascript/login.js"></script>
+    <link rel="stylesheet" href="/static/css/chatbot.css">
 </head>
 
 <body>
@@ -36,8 +36,8 @@
                 <form id="loginForm" class="sign-in-form">
                     <h2 class="title">Sign In</h2>
                     <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username" placeholder="Username" required />
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="Email" required />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                    <p class="social-text">Don't have an account? <a href="#">Sign Up</a></p>
+                    <p class="social-text">Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a></p>
                 </form>
 
                 <!-- Sign Up Form -->
@@ -74,6 +74,7 @@
                         <div class="form-group">
                             <i class="fas fa-user"></i>
                             <input type="text" id="firstname" name="firstname" placeholder="First Name" required />
+                            <div class="error-message" id="firstname-error"></div>
                         </div>
                         <div class="form-group">
                             <i class="fas fa-user"></i>
@@ -84,20 +85,25 @@
                         <div class="form-group">
                             <i class="fas fa-envelope"></i>
                             <input type="email" id="email" name="email" placeholder="Email" required />
+                            <div class="error-message" id="email-error"></div>
                         </div>
                         <div class="form-group">
                             <i class="fas fa-phone"></i>
                             <input type="tel" id="mobileno" name="mobileno" placeholder="Mobile No" required />
+                            <div class="error-message" id="mobileno-error"></div>
                         </div>
                         
                         <!-- Third Row: Password + Confirm Password -->
                         <div class="form-group">
                             <i class="fas fa-lock"></i>
                             <input type="password" id="registerPassword" name="password" placeholder="Password" required />
+                            <div id="password-strength-meter"><div class="strength-bar"></div></div>
+                            <div class="error-message" id="password-error"></div>
                         </div>
                         <div class="form-group">
                             <i class="fas fa-lock"></i>
                             <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" required />
+                            <div class="error-message" id="confirmpassword-error"></div>
                         </div>
                     </div>
                     <input type="submit" value="Register" class="btn solid" />
@@ -144,7 +150,30 @@
         </div>
     </div>
 
-    <script>
+    <!-- PlantGuard Chatbot -->
+    <div class="plantguard-chatbot">
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-leaf"></i>
+        </button>
+        <div class="chatbot-container" id="chatbotContainer">
+            <div class="chatbot-header">
+                <h3><i class="fas fa-robot"></i> PlantGuard Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="quick-replies" id="quickReplies">
+                <!-- Quick reply buttons will appear here -->
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ask about plant diseases...">
+                <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script>
         const container = document.querySelector(".container");
         const signUpBtn = document.getElementById("sign-up-btn");
         const signInBtn = document.getElementById("sign-in-btn");
@@ -156,6 +185,21 @@
         signInBtn.addEventListener("click", () => {
             container.classList.remove("sign-up-mode");
         });
+    </script> -->
+        <script>
+        // Initialize phone input
+        document.addEventListener("DOMContentLoaded", function() {
+            const phoneInput = document.querySelector("#mobileno");
+            if (phoneInput) {
+                window.intlTelInput(phoneInput, {
+                    initialCountry: "in",
+                    separateDialCode: true,
+                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+                });
+            }
+        });
     </script>
+    <script src="/static/javascript/login.js"></script>
+    <script src="/static/javascript/chatbot.js"></script>
 </body>
 </html>

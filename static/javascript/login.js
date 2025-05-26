@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.querySelector(".container");
     const signUpBtn = document.getElementById("sign-up-btn");
     const signInBtn = document.getElementById("sign-in-btn");
+    const switchToSignup = document.getElementById("switch-to-signup");
 
-    if (signUpBtn && signInBtn && container) {
+    if (signUpBtn && signInBtn && container && switchToSignup) {
         signUpBtn.addEventListener("click", function(e) {
             e.preventDefault();
             container.classList.add("sign-up-mode");
@@ -12,6 +13,11 @@ document.addEventListener("DOMContentLoaded", function() {
         signInBtn.addEventListener("click", function(e) {
             e.preventDefault();
             container.classList.remove("sign-up-mode");
+        });
+
+        switchToSignup.addEventListener("click", function(e) {
+            e.preventDefault();
+            container.classList.add("sign-up-mode");
         });
     }
 });
@@ -37,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Registration form submission
-document.querySelector(".registration-form").addEventListener("submit", async (event) => {
+document.getElementById("registerForm").addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevent default form submission
 
     const form = event.target;
@@ -306,3 +312,4 @@ document.querySelectorAll('#registerForm input').forEach(input => {
         }
     });
 });
+

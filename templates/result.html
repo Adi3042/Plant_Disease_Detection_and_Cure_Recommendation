@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Result</title>
-    <link rel="stylesheet" href="/static/css/result.css">
+    
+    <!-- Meta Tags -->
     <meta property="og:title" content="AI Plant Disease Prediction Result">
     <meta property="og:description" content="See the AI-detected disease and recommended cures for your crop.">
     <meta property="og:image" content="{{ img_path }}">
     <meta property="og:url" content="https://yourdomain.com/result">
-    <link rel="icon" href="/static/assets/logo.png" />
+    
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="/static/css/result.css">
+    <link rel="icon" href="/static/assets/logo.png">
 </head>
+
 <body>
-    <!-- Navigation Bar -->
+    <!-- ========== HEADER ========== -->
     <header>
         <a href="/" class="logo-link">
             <img src="/static/assets/logo.png" alt="Logo" class="logo">
@@ -28,9 +33,9 @@
         </div>
     </header>
 
-    <!-- Result Section -->
+    <!-- ========== RESULT SECTION ========== -->
     <div class="result-container">
-        <!-- Left Section -->
+        <!-- Left Column: Prediction Results -->
         <div class="result-left">
             <h2>Prediction Result</h2>
             <img src="{{ img_path }}" alt="Uploaded Image" class="result-image">
@@ -43,10 +48,11 @@
             <a href="/" class="upload-btn">Upload Another Image</a>
         </div>
 
-        <!-- Right Section -->
+        <!-- Right Column: Remedies -->
         <div class="result-right">
             <h2>🌿 Cure and Remedies</h2>
             <div id="remedy-markdown" class="remedy-box"></div>
+            
             <div class="suggestions">
                 <h3>🌾 Suggested Actions</h3>
                 <ul>
@@ -58,14 +64,15 @@
         </div>
     </div>
 
-    <!-- Render markdown using marked.js -->
+    <!-- ========== MARKDOWN RENDERER ========== -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         const rawMarkdown = `{{ remedies | safe }}`;
         const html = marked.parse(rawMarkdown);
         document.getElementById('remedy-markdown').innerHTML = html;
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // Hide loader if it's still showing (in case page loaded completely)
+            // Hide loader if it's still showing
             const loader = document.getElementById('loader-container');
             if (loader) {
                 loader.style.display = 'none';
@@ -73,7 +80,7 @@
         });
     </script>
 
-    <!-- Footer -->
+    <!-- ========== FOOTER ========== -->
     <footer>
         <p>© 2025 PlantDisease Detector | Empowering Smart Farming with AI</p>
     </footer>

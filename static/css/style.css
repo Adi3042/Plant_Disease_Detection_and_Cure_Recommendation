@@ -180,6 +180,21 @@ body::before {
         width: 100%;
         max-width: 400px;
     }
+    .profile-dropdown {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .dropdown-content {
+        position: static;
+        width: 100%;
+    }
+    
+    .profile-icon {
+        padding: 15px;
+        width: 100%;
+        text-align: left;
+    }
 }
 
 footer {
@@ -724,6 +739,54 @@ nav a:hover {
     }
 }
 
+/* Profile Dropdown Styles */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.profile-icon {
+    padding: 5px 9px;
+    font-size: 18px;
+    color: white;
+    transition: all 0.3s;
+}
+
+.profile-icon:hover {
+    color: #4CAF50;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(76, 175, 80, 0.5);
+    color: white;
+}
+
+.profile-dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .upload-container {
     display: flex;
     flex-direction: column;
@@ -822,6 +885,10 @@ nav a:hover {
     overflow: hidden;
 }
 
+.intro-overlay.overlay-active .panel-content {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
 .left-panel, .right-panel {
     flex: 1;
     height: 100%;
@@ -852,7 +919,9 @@ nav a:hover {
     text-align: center;
     color: white;
     z-index: 2;
-    opacity: 0;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 

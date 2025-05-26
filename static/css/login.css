@@ -120,6 +120,40 @@ input {
     font-size: 1.2rem;
 }
 
+/* Add these styles to your existing CSS */
+.sign-in-form, .sign-up-form {
+    transition: all 0.7s ease-in-out;
+}
+
+.container.sign-up-mode .sign-in-form {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-100%);
+}
+
+.container.sign-up-mode .sign-up-form {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+}
+
+.container:not(.sign-up-mode) .sign-in-form {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+}
+
+.container:not(.sign-up-mode) .sign-up-form {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+}
+
+.sign-up-form {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+}
 
 .form-group.full-width {
   grid-column: span 2;
@@ -170,31 +204,33 @@ textarea {
     }
 }
 
-/* Alert animations */
 .alert {
     position: fixed;
     top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    display: none;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    z-index: 1000;
     opacity: 0;
-    transition: opacity 0.5s ease, top 0.5s ease;
+    transition: opacity 0.5s;
+    max-width: 300px;
+}
+
+.alert.show {
+    opacity: 1;
+}
+
+.alert.hide {
+    opacity: 0;
 }
 
 .alert-success {
     background-color: #28a745;
-    color: white;
 }
 
 .alert-error {
     background-color: #dc3545;
-    color: white;
 }
 
 /* Style for warning messages */
@@ -207,17 +243,6 @@ textarea {
 .alert-info {
     background-color: #17a2b8;
     color: white;
-}
-
-.alert.show {
-    display: block;
-    opacity: 1;
-    top: 40px;
-}
-
-.alert.hide {
-    opacity: 0;
-    top: 20px;
 }
 
 form {
@@ -745,13 +770,22 @@ input:valid {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 .loading-spinner::after {
@@ -773,6 +807,31 @@ input:valid {
     color: #dc3545;
     font-size: 0.8rem;
     margin-top: 5px;
+    display: none;
+}
+
+.input-error {
+    border-color: #dc3545 !important;
+}
+
+.input-success {
+    border-color: #28a745 !important;
+}
+
+#password-strength-meter {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    height: 5px;
+    background: #eee;
+    margin: 5px 0 10px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#password-strength-meter .strength-bar {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s, background 0.3s;
 }
 
 /* Add to your existing input styles */
